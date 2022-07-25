@@ -14,7 +14,9 @@ RUN apt update && apt install -y \
 
 RUN apt clean && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd xdebug
+RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
+
+RUN pecl install xdebug && docker-php-ext-enable xdebug
 
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
