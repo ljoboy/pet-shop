@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+    app:
+        build:
+            args:
+                user: joboy
+                uid: 1000
+            context: ./
+            dockerfile: Dockerfile
+        image: petshop
+        container_name: petshop-app
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        networks:
+            - petshop
+
+    db:
+        image: mysql:8.0
+        container_name: petshop-db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        networks:
+            - petshop
+
+    nginx:
+        image: nginx:alpine
+        container_name: petshop-nginx
+        restart: unless-stopped
+        ports:
+            - "8000:8000"
+            - "3306:33060"
+        volumes:
+            - ./:/var/www
+            - ./docker-compose/nginx:/etc/nginx/conf.d/
+        networks:
+            - petshop
+
+networks:
+    petshop:
+        driver: bridge
