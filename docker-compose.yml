@@ -35,8 +35,7 @@ services:
         container_name: petshop-nginx
         restart: unless-stopped
         ports:
-            - "8000:8000"
-            - "33060:3306"
+            - "8000:80"
         volumes:
             - ./:/var/www
             - ./docker-compose/nginx:/etc/nginx/conf.d/
