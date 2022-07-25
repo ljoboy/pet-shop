@@ -34,7 +34,7 @@ docker-compose ps
 To access in terminal mode
 
 ```sh
-docker-compose exec app /bin/bash -it  
+docker-compose exec app /bin/bash
 ```
 ### Laravel Dependencies
 
