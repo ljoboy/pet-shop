@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreFileRequest;
-use App\Http\Requests\UpdateFileRequest;
+use App\Http\Requests\Api\v1\File\StoreFileRequest;
+use App\Http\Requests\Api\v1\File\UpdateFileRequest;
 use App\Models\File;
 
-class FileController extends Controller
+final class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,7 +22,7 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreFileRequest  $request
+     * @param  \App\Http\Requests\Api\v1\File\StoreFileRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreFileRequest $request)
@@ -44,7 +44,7 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateFileRequest  $request
+     * @param  \App\Http\Requests\Api\v1\File\UpdateFileRequest  $request
      * @param  \App\Models\File  $file
      * @return \Illuminate\Http\Response
      */
