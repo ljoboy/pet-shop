@@ -58,7 +58,7 @@ class {{ class }} extends Controller
      * @param  int  $id
      * @return Response
      */
-    public function destroy($id): Response
+    final public function destroy($id): Response
     {
         //
     }

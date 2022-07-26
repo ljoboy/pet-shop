@@ -4,7 +4,7 @@ namespace {{ namespace }};
 
 use PHPUnit\Framework\TestCase;
 
-class {{ class }} extends TestCase
+final class {{ class }} extends TestCase
 {
     /**
      * A basic unit test example.
