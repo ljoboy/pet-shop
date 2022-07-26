@@ -19,7 +19,10 @@ return new class extends Migration
            $table->index(['id']);
            $table->dropPrimary('id');
            $table->primary(['uuid']);
-            $table->timestamps();
+           $table->string('name');
+           $table->string('path');
+           $table->string('type')->comment('mime/type');
+           $table->timestamps();
         });
     }
 

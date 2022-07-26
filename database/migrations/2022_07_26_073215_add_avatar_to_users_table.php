@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('{{ table }}', function (Blueprint $table) {
-           $table->uuid();
-           $table->bigIncrements('id');
-           $table->index(['id']);
-           $table->dropPrimary('id');
-           $table->primary(['uuid']);
-           $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->foreignUuid('avatar')->nullable()->references('uuid')->on('files');
         });
     }
 
@@ -30,6 +25,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('{{ table }}');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('avatar');
+            $table->dropIndex('avatar');
+            $table->dropColumn('avatar');
+        });
     }
 };
