@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
+use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,10 +18,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
     // Auth endpoint
-    Route::controller(UserAuthController::class)->prefix('user')->group(function () {
-        Route::post('login', 'login');
-        Route::get('logout', 'logout');
-        Route::post('create', 'create');
+    Route::prefix('user')->group(function () {
+        Route::controller(UserAuthController::class)->group(function () {
+            Route::post('login', 'login');
+            Route::get('logout', 'logout');
+            Route::post('create', 'create');
+        });
+       Route::controller(PasswordResetController::class)->group(function () {
+           Route::post('forgot-password', 'forgotPassword');
+           Route::post('reset-password', 'resetPassword');
+       });
     });
     Route::controller(AdminAuthController::class)->prefix('admin')->group(function () {
         Route::post('login', 'login');
