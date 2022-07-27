@@ -1,11 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
+use App\Listeners\UserLoginAt;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -14,28 +17,26 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array<class-string, array<int, class-string>>
      */
-    protected $listen = [
+    protected array $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
+        ],
+        Login::class => [
+            UserLoginAt::class,
         ],
     ];
 
     /**
      * Register any events for your application.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
     }
 
     /**
      * Determine if events and listeners should be automatically discovered.
-     *
-     * @return bool
      */
-    public function shouldDiscoverEvents()
+    public function shouldDiscoverEvents(): bool
     {
         return false;
     }
