@@ -1,66 +1,48 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreFileRequest;
-use App\Http\Requests\UpdateFileRequest;
+use App\Http\Requests\Api\v1\File\StoreFileRequest;
+use App\Http\Requests\Api\v1\File\UpdateFileRequest;
 use App\Models\File;
 
-class FileController extends Controller
+final class FileController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(): \Illuminate\Http\Response
     {
-        //
     }
 
     /**
      * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreFileRequest  $request
-     * @return \Illuminate\Http\Response
      */
-    public function store(StoreFileRequest $request)
+    public function store(StoreFileRequest $request): \Illuminate\Http\Response
     {
-        //
     }
 
     /**
      * Display the specified resource.
-     *
-     * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
      */
-    public function show(File $file)
+    public function show(File $file): \Illuminate\Http\Response
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateFileRequest  $request
-     * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
      */
-    public function update(UpdateFileRequest $request, File $file)
+    public function update(UpdateFileRequest $request, File $file): \Illuminate\Http\Response
     {
-        //
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\File  $file
-     * @return \Illuminate\Http\Response
      */
-    public function destroy(File $file)
+    public function destroy(File $file): \Illuminate\Http\Response
     {
-        //
     }
 }

@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use Closure;
 use Illuminate\Http\Request;
 
-class {{ class }}
+final class {{ class }}
 {
     /**
      * Handle an incoming request.

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use Illuminate\Contracts\Database\Eloquent\CastsInboundAttributes;
 
-class {{ class }} implements CastsInboundAttributes
+final class {{ class }} implements CastsInboundAttributes
 {
     /**
      * Prepare the given value for storage.

@@ -1,10 +1,12 @@
 <?php
 
+declare(strict_types=1);
+
 namespace {{ namespace }};
 
 use Illuminate\Contracts\Database\Eloquent\CastsAttributes;
 
-class {{ class }} implements CastsAttributes
+final class {{ class }} implements CastsAttributes
 {
     /**
      * Cast the given value.
