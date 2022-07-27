@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Requests\Api\V1\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -8,8 +10,6 @@ final class AdminAuthRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     *
-     * @return bool
      */
     public function authorize(): bool
     {
@@ -24,7 +24,7 @@ final class AdminAuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+
         ];
     }
 }
