@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -9,18 +11,9 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
-use App\Traits\HasUuid;
 
 final class User extends Authenticatable implements JWTSubject
 {
-   protected static function boot()
-   {
-       parent::boot();
-       User::creating(function($model){
-           $model->uuid = Str::uuid()->toString();
-       });
-   }
-
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -28,10 +21,11 @@ final class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    protected array $fillable = [
         'name',
         'email',
         'password',
+        'last_login_at',
     ];
 
     /**
@@ -39,7 +33,7 @@ final class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $hidden = [
+    protected array $hidden = [
         'password',
         'remember_token',
     ];
@@ -49,23 +43,25 @@ final class User extends Authenticatable implements JWTSubject
      *
      * @var array<string, string>
      */
-    protected $casts = [
+    protected array $casts = [
         'email_verified_at' => 'datetime',
     ];
 
-    /**
-     * @return mixed
-     */
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
     }
 
-    /**
-     * @return array
-     */
     public function getJWTCustomClaims(): array
     {
         return [];
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        User::creating(function ($model): void {
+            $model->uuid = Str::uuid()->toString();
+        });
     }
 }
