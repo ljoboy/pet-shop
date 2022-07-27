@@ -2,29 +2,40 @@
 
 namespace Database\Factories;
 
+use Hash;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
+ * @extends Factory
  */
-class UserFactory extends Factory
+final class UserFactory extends Factory
 {
     /**
      * Define the model's default state.
      *
      * @return array<string, mixed>
      */
-    public function definition()
+    #[ArrayShape([
+        'last_name' => "string",
+        'first_name' => "string",
+        'email' => "string",
+        'email_verified_at' => "\Illuminate\Support\Carbon",
+        'password' => "string",
+        'address' => "string",
+        'phone_number' => "string"
+    ])]
+    public function definition(): array
     {
         return [
             'last_name' => fake()->name(),
             'first_name' => fake()->firstName(),
             'email' => fake()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'address' => 'ghu',
-            'phone_number' => '+243906632155',
+            'password' => Hash::make('userpassword'),
+            'address' => fake()->address(),
+            'phone_number' => fake()->e164PhoneNumber(),
         ];
     }
 
@@ -33,7 +44,7 @@ class UserFactory extends Factory
      *
      * @return static
      */
-    public function unverified()
+    public function unverified(): static
     {
         return $this->state(function (array $attributes) {
             return [
