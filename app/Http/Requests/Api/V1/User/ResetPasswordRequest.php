@@ -24,11 +24,13 @@ final class ResetPasswordRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    #[ArrayShape(['email' => "string[]"])]
+    #[ArrayShape(['email' => "string[]", 'token' => "string[]", 'password' => "string[]"])]
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email']
+            'email' => ['required', 'email'],
+            'token' => ['required', 'string'],
+            'password' => ['required', 'string', 'confirmed', 'min:8', ],
         ];
     }
 }

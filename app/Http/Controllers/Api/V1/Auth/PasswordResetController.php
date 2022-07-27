@@ -5,46 +5,34 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\User\ForgotPasswordRequest;
 use App\Http\Requests\Api\V1\User\ResetPasswordRequest;
-use App\Models\PasswordReset;
 use App\Models\User;
-use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
-use Illuminate\Support\Str;
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
+use Symfony\Component\HttpFoundation\Response;
 
 final class PasswordResetController extends Controller
 {
 
-    public function resetPassword(ResetPasswordRequest $request)
+    public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
-    }
-
-    public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
-    {
-        $error = 'Invalid email';
-        $response = [];
-        $email = $request->post('email');
-        $user = User::whereEmail($email)->first();
-        $status_code = HttpResponse::HTTP_NOT_FOUND;
-
-        if ($user && $user->is_admin == 1) {
-            $error = 'Admin user cannot be edited';
-            $status_code = HttpResponse::HTTP_BAD_REQUEST;
-        }
-
-        if ($user && $user->is_admin == 0) {
-            $status_code = HttpResponse::HTTP_OK;
-            $response = ['reset_token' => Password::createToken($user)];
-            $error = null;
-        }
-
+        $status_code = Response::HTTP_UNPROCESSABLE_ENTITY;
         $data = [
-            'error' => $error,
-            'data' => $response
+            'error' => 'Invalid or expired token'
         ];
+        $credentials = $request->only(['email','token', 'password', 'password_confirmation']);
+        $response = Password::reset($credentials, function (User $user, string $password) {
+            $user->fill([
+                'password' => Hash::make($password)
+            ])->save();
+        });
+
+        if ($response === Password::PASSWORD_RESET) {
+            $status_code = Response::HTTP_OK;
+            $data['message'] = "Password has been successfully updated";
+            $data['error'] = null;
+        }
 
         return response()->json($data, $status_code);
     }
