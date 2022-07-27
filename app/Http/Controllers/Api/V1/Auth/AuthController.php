@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1\Auth;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
-abstract class AuthController
+abstract class AuthController extends Controller
 {
-    public function logout(): JsonResponse
+
+    /**
+     * @param bool $is_admin
+     * @return JsonResponse
+     */
+    public function logoutAttempt(bool $is_admin): JsonResponse
     {
-        if (Auth::check()) {
+        if (Auth::check() && Auth::user()->is_admin == $is_admin) {
             Auth::logout();
         }
 
@@ -21,6 +27,8 @@ abstract class AuthController
 
     /**
      * @param array $credentials
+     * @param bool $is_admin
+     * @return JsonResponse
      */
     protected function loginAttempt(array $credentials, bool $is_admin): JsonResponse
     {
