@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Requests\Api\V1\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
+use JetBrains\PhpStorm\ArrayShape;
 
 final class AdminAuthRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ final class AdminAuthRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +22,12 @@ final class AdminAuthRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+    #[ArrayShape(['email' => "string[]", 'password' => "string[]"])]
     public function rules(): array
     {
         return [
-
+            'email' => ['sometimes', 'string'],
+            'password' => ['sometimes', 'string'],
         ];
     }
 }

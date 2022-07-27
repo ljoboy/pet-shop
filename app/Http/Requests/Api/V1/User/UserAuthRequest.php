@@ -20,9 +20,10 @@ final class UserAuthRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array<string, array<int, string>>
      */
-    #[ArrayShape(['email' => 'string[]', 'password' => 'string[]'])] public function rules(): array
+    #[ArrayShape(['email' => 'string[]', 'password' => 'string[]'])]
+    public function rules(): array
     {
         return [
             'email' => ['sometimes', 'string'],
