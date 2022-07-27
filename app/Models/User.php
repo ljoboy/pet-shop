@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
+use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 
@@ -60,8 +61,11 @@ final class User extends Authenticatable implements JWTSubject
         return $this->getKey();
     }
 
+    #[ArrayShape(['user_uuid' => "mixed|string"])]
     public function getJWTCustomClaims(): array
     {
-        return [];
+        return [
+            'user_uuid' => $this->uuid,
+        ];
     }
 }
