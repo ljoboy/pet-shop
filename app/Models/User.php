@@ -21,7 +21,7 @@ final class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'name',
         'email',
         'password',
@@ -33,7 +33,7 @@ final class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected array $hidden = [
+    protected $hidden = [
         'password',
         'remember_token',
     ];
@@ -43,9 +43,17 @@ final class User extends Authenticatable implements JWTSubject
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        User::creating(function ($model): void {
+            $model->uuid = Str::uuid()->toString();
+        });
+    }
 
     public function getJWTIdentifier(): mixed
     {
@@ -55,13 +63,5 @@ final class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims(): array
     {
         return [];
-    }
-
-    protected static function boot(): void
-    {
-        parent::boot();
-        User::creating(function ($model): void {
-            $model->uuid = Str::uuid()->toString();
-        });
     }
 }
