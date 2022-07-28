@@ -60,7 +60,7 @@ final class {{ class }} extends Controller
      * @param  int  $id
      * @return JsonResponse
      */
-    final public function destroy($id): JsonResponse
+    public function destroy($id): JsonResponse
     {
         //
     }
