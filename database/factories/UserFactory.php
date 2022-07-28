@@ -33,7 +33,7 @@ final class UserFactory extends Factory
             'first_name' => fake()->firstName(),
             'email' => fake()->safeEmail(),
             'email_verified_at' => now(),
-            'password' => Hash::make('userpassword'),
+            'password' => 'userpassword',
             'address' => fake()->address(),
             'phone_number' => fake()->e164PhoneNumber(),
         ];
