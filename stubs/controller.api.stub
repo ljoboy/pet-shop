@@ -6,16 +6,16 @@ namespace {{ namespace }};
 
 use {{ rootNamespace }}Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Http\JsonResponse;
 
 final class {{ class }} extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return JsonResponse
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
         //
     }
@@ -24,9 +24,9 @@ final class {{ class }} extends Controller
      * Store a newly created resource in storage.
      *
      * @param  Request  $request
-     * @return Response
+     * @return JsonResponse
      */
-    public function store(Request $request): Response
+    public function store(Request $request): JsonResponse
     {
         //
     }
@@ -35,9 +35,9 @@ final class {{ class }} extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function show($id): Response
+    public function show($id): JsonResponse
     {
         //
     }
@@ -47,9 +47,9 @@ final class {{ class }} extends Controller
      *
      * @param  Request  $request
      * @param  int  $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function update(Request $request, $id): Response
+    public function update(Request $request, $id): JsonResponse
     {
         //
     }
@@ -58,9 +58,9 @@ final class {{ class }} extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return Response
+     * @return JsonResponse
      */
-    final public function destroy($id): Response
+    final public function destroy($id): JsonResponse
     {
         //
     }

@@ -8,6 +8,7 @@ use {{ namespacedModel }};
 use {{ rootNamespace }}Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use {{ namespacedParentModel }};
+use Illuminate\Http\JsonResponse;
 
 final class {{ class }} extends Controller
 {
@@ -15,9 +16,9 @@ final class {{ class }} extends Controller
      * Display a listing of the resource.
      *
      * @param  \{{ namespacedParentModel }}  ${{ parentModelVariable }}
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index({{ parentModel }} ${{ parentModelVariable }})
+    public function index({{ parentModel }} ${{ parentModelVariable }}): JsonResponse
     {
         //
     }
@@ -27,9 +28,9 @@ final class {{ class }} extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \{{ namespacedParentModel }}  ${{ parentModelVariable }}
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function store(Request $request, {{ parentModel }} ${{ parentModelVariable }})
+    public function store(Request $request, {{ parentModel }} ${{ parentModelVariable }}): JsonResponse
     {
         //
     }
@@ -39,9 +40,9 @@ final class {{ class }} extends Controller
      *
      * @param  \{{ namespacedParentModel }}  ${{ parentModelVariable }}
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function show({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }})
+    public function show({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }}): JsonResponse
     {
         //
     }
@@ -52,9 +53,9 @@ final class {{ class }} extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  \{{ namespacedParentModel }}  ${{ parentModelVariable }}
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function update(Request $request, {{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }})
+    public function update(Request $request, {{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }}): JsonResponse
     {
         //
     }
@@ -64,9 +65,9 @@ final class {{ class }} extends Controller
      *
      * @param  \{{ namespacedParentModel }}  ${{ parentModelVariable }}
      * @param  \{{ namespacedModel }}  ${{ modelVariable }}
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function destroy({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }})
+    public function destroy({{ parentModel }} ${{ parentModelVariable }}, {{ model }} ${{ modelVariable }}): JsonResponse
     {
         //
     }
