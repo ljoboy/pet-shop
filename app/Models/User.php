@@ -8,6 +8,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use JetBrains\PhpStorm\ArrayShape;
 use Laravel\Sanctum\HasApiTokens;
@@ -23,10 +24,16 @@ final class User extends Authenticatable implements JWTSubject
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
         'last_login_at',
+        'is_admin',
+        'is_marketing',
+        'address',
+        'phone_number',
+        'avatar',
     ];
 
     /**
@@ -36,7 +43,7 @@ final class User extends Authenticatable implements JWTSubject
      */
     protected $hidden = [
         'password',
-        'remember_token',
+        'id',
     ];
 
     /**
@@ -46,6 +53,8 @@ final class User extends Authenticatable implements JWTSubject
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
+        'is_marketing' => 'boolean',
     ];
 
     protected static function boot(): void
@@ -53,6 +62,7 @@ final class User extends Authenticatable implements JWTSubject
         parent::boot();
         User::creating(function ($model): void {
             $model->uuid = Str::uuid()->toString();
+            $model->password = Hash::make($model->password);
         });
     }
 
