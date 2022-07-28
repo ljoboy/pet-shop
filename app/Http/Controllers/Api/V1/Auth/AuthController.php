@@ -18,7 +18,7 @@ abstract class AuthController extends Controller
      */
     public function logoutAttempt(bool $is_admin): JsonResponse
     {
-        if (Auth::check() && Auth::user()->is_admin == $is_admin) {
+        if (Auth::check() && (Auth::user()->is_admin === $is_admin)) {
             Auth::logout();
         }
 

@@ -27,12 +27,12 @@ final class ForgotPasswordController extends Controller
         $user = User::whereEmail($email)->first();
         $status_code = HttpResponse::HTTP_NOT_FOUND;
 
-        if ($user && $user->is_admin === 1) {
+        if ($user && $user->is_admin) {
             $error = 'Admin user cannot be edited';
             $status_code = HttpResponse::HTTP_BAD_REQUEST;
         }
 
-        if ($user && $user->is_admin === 0) {
+        if ($user && !$user->is_admin) {
             $status_code = HttpResponse::HTTP_OK;
             $response = ['reset_token' => Password::createToken($user)];
             $error = null;

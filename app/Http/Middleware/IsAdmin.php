@@ -9,6 +9,7 @@ use Closure;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class IsAdmin
 {
@@ -21,8 +22,8 @@ final class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response|RedirectResponse
     {
-        if (!Auth::user() || !Auth::user()->is_admin == 1) {
-            abort(403, 'Unauthorized action.');
+        if (!Auth::user() || !Auth::user()->is_admin) {
+            abort(HttpResponse::HTTP_UNAUTHORIZED, 'Unauthorized action.');
         }
 
         return $next($request);
