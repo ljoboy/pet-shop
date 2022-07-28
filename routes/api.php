@@ -37,15 +37,13 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:api'])->group(function () {
         // Admin endpoint
         Route::prefix('admin')->group(function () {
-            Route::controller(AdminAuthController::class)->group(function () {
-                //
+            Route::get('/ok', function () {
+                return auth()->payload()->get('user_uuid');
             });
         });
         // User endpoint
         Route::prefix('user')->group(function () {
-            Route::controller(UserAuthController::class)->group(function () {
-                //
-            });
+
         });
     });
 });
