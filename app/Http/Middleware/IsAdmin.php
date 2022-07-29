@@ -6,6 +6,7 @@ namespace App\Http\Middleware;
 
 use Auth;
 use Closure;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -18,11 +19,11 @@ final class IsAdmin
      *
      * @param Request $request
      * @param Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return Response|RedirectResponse
+     * @return Response|RedirectResponse|JsonResponse
      */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next): Response|RedirectResponse|JsonResponse
     {
-        if (!Auth::user() || !Auth::user()->is_admin) {
+        if (!Auth::user()?->is_admin) {
             abort(HttpResponse::HTTP_UNAUTHORIZED, 'Unauthorized action.');
         }
 
