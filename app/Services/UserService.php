@@ -23,6 +23,11 @@ class UserService
         return $data;
     }
 
+    public function update(array $user_attributes, User $user)
+    {
+        return $user->update($user_attributes);
+    }
+
     /**
      * @param User $user
      * @return bool|null
