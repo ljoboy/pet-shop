@@ -6,11 +6,13 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\User\CreateUserRequest;
-use App\Models\User;
+use App\Http\Requests\Api\V1\User\UpdateUserRequest;
+use App\Http\Resources\Api\V1\User\UserResource;
 use App\Services\UserService;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 final class UserApiController extends Controller
 {
@@ -21,9 +23,9 @@ final class UserApiController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return JsonResponse
      */
-    public function index(): Response
+    public function index(): JsonResponse
     {
         //
     }
@@ -37,42 +39,44 @@ final class UserApiController extends Controller
     public function store(CreateUserRequest $request): JsonResponse
     {
         $response = $this->userService->create($request->validated());
-        return response()->json($response);
+        return (new UserResource($response))->response()->setStatusCode(Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
-     * @return JsonResponse
+     * @return UserResource
      */
-    public function show(): JsonResponse
+    public function show(): UserResource
     {
-        return response()->json(auth()->user());
+        return new UserResource(auth()->user());
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param User $user
+     * @param UpdateUserRequest $request
      * @return JsonResponse
      */
-    public function update(Request $request, User $user): JsonResponse
+    public function update(UpdateUserRequest $request): JsonResponse
     {
-        //
+        $user = auth()->user();
+        $this->userService->update($request->validated(), $user);
+
+        return (new UserResource($user))->response()->setStatusCode(Response::HTTP_ACCEPTED);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @return JsonResponse
+     * @return Application|ResponseFactory|\Illuminate\Http\Response
      */
-    public function destroy(): JsonResponse
+    public function destroy(): Application|ResponseFactory|\Illuminate\Http\Response
     {
         $data['message'] = 'An error occurred';
         if ($this->userService->delete(auth()->user())) {
-            $data['message'] = 'User deleted successfully!';
+            $data['message'] = null;
         }
-        return response()->json($data);
+        return response($data, Response::HTTP_NO_CONTENT);
     }
 }
