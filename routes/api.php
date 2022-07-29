@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\V1\AdminApiController;
 use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
@@ -41,15 +42,14 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->group(function () {
         // Admin endpoint
         Route::prefix('admin')->middleware(IsAdmin::class)->group(function () {
-            Route::get('/ok', function () {
-                return auth()->payload()->get('user_uuid');
-            });
+            Route::get('user-listing', [AdminApiController::class, 'userListing']);
         });
         // User endpoint
         Route::prefix('user')->middleware(IsUser::class)->group(function () {
             Route::controller(UserApiController::class)->group(function () {
                 Route::get('/', 'show');
                 Route::delete('/', 'destroy');
+                Route::put('/edit', 'update');
             });
         });
     });

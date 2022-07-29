@@ -20,7 +20,7 @@ final class AdminAuthRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array<string, array<string>>
      */
     #[ArrayShape(['email' => "string[]", 'password' => "string[]"])]
     public function rules(): array
