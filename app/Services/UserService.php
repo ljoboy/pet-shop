@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,5 +21,14 @@ class UserService
         $data['token'] = Auth::login($data);
 
         return $data;
+    }
+
+    /**
+     * @param User $user
+     * @return bool|null
+     */
+    public function delete(User $user): ?bool
+    {
+        return $user->delete();
     }
 }

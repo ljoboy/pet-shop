@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\User\CreateUserRequest;
+use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -53,10 +54,10 @@ final class UserApiController extends Controller
      * Update the specified resource in storage.
      *
      * @param Request $request
-     * @param int $id
-     * @return Response
+     * @param User $user
+     * @return JsonResponse
      */
-    public function update(Request $request, $id): Response
+    public function update(Request $request, User $user): JsonResponse
     {
         //
     }
@@ -69,7 +70,7 @@ final class UserApiController extends Controller
     public function destroy(): JsonResponse
     {
         $data['message'] = 'An error occurred';
-        if (auth()->user()?->delete()) {
+        if ($this->userService->delete(auth()->user())) {
             $data['message'] = 'User deleted successfully!';
         }
         return response()->json($data);
