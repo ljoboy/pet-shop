@@ -33,7 +33,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUuid($value)
  */
-	final class File extends \Eloquent {}
+	final class IdeHelperFile {}
 }
 
 namespace App\Models{
@@ -50,7 +50,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordReset whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordReset whereToken($value)
  */
-	final class PasswordReset extends \Eloquent {}
+	final class IdeHelperPasswordReset {}
 }
 
 namespace App\Models{
@@ -61,13 +61,13 @@ namespace App\Models{
  * @property int $id
  * @property string $first_name
  * @property string $last_name
- * @property int $is_admin
+ * @property bool $is_admin
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string $address
  * @property string $phone_number
- * @property int $is_marketing
+ * @property bool $is_marketing
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $last_login_at
@@ -96,6 +96,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUuid($value)
  */
-	final class User extends \Eloquent implements \PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject {}
+	final class IdeHelperUser {}
 }
 
