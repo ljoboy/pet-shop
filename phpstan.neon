@@ -13,8 +13,8 @@ parameters:
     # The level 9 is the highest level
     level: 8
 
-    ignoreErrors:
-        - '#[ArrayShape()]]#'
+#    ignoreErrors:
+#        -
 
 #    excludePaths:
 #        - ./*/*/FileToBeExcluded.php
