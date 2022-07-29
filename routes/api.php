@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
 use App\Http\Controllers\Api\V1\UserApiController;
+use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -36,17 +38,18 @@ Route::prefix('v1')->group(function () {
         });
     });
 
-    Route::middleware(['auth:api'])->group(function () {
+    Route::middleware('auth:api')->group(function () {
         // Admin endpoint
-        Route::prefix('admin')->group(function () {
+        Route::prefix('admin')->middleware(IsAdmin::class)->group(function () {
             Route::get('/ok', function () {
                 return auth()->payload()->get('user_uuid');
             });
         });
         // User endpoint
-        Route::prefix('user')->group(function () {
+        Route::prefix('user')->middleware(IsUser::class)->group(function () {
             Route::controller(UserApiController::class)->group(function () {
-
+                Route::get('/', 'show');
+                Route::delete('/', 'destroy');
             });
         });
     });
