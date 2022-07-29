@@ -21,7 +21,7 @@ final class AdminSeeder extends Seeder
             'first_name' => fake()->firstName(),
             'email' => 'admin@buckhill.co.uk',
             'email_verified_at' => now(),
-            'password' => Hash::make('admin'),
+            'password' => 'admin',
             'address' => fake()->address(),
             'phone_number' => fake()->e164PhoneNumber(),
             'is_admin' => true,
