@@ -6,6 +6,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -79,5 +80,18 @@ final class User extends Authenticatable implements JWTSubject
         return [
             'user_uuid' => $this->uuid,
         ];
+    }
+
+
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param mixed $value
+     * @param string|null $field
+     * @return Model|null
+     */
+    public function resolveRouteBinding($value, $field = null): ?Model
+    {
+        return $this->where('uuid', $value)->firstOrFail();
     }
 }
