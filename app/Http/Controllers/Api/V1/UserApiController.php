@@ -42,12 +42,11 @@ final class UserApiController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function show($id): Response
+    public function show(): JsonResponse
     {
-        //
+        return response()->json(auth()->user());
     }
 
     /**
@@ -65,11 +64,14 @@ final class UserApiController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy($id): Response
+    public function destroy(): JsonResponse
     {
-        //
+        $data['message'] = 'An error occurred';
+        if (auth()->user()?->delete()) {
+            $data['message'] = 'User deleted successfully!';
+        }
+        return response()->json($data);
     }
 }
