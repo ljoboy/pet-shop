@@ -4,6 +4,7 @@ install: docker-up
 	docker-compose exec app rm -rf vendor composer.lock
 	docker-compose exec app composer install
 	docker-compose exec app php artisan key:generate
+	docker-compose exec app php artisan storage:link
 
 helpers:
 	php artisan ide-helper:generate
