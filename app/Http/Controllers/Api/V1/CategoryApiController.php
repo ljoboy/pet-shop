@@ -2,32 +2,33 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Resources\Api\V1\Category\CategoryCollection;
+use App\Http\Resources\Api\V1\Category\CategoryShowResource;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
-final class CategoryController extends Controller
+final class CategoryApiController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return AnonymousResourceCollection
      */
-    public function index()
+    public function index(Request $request): AnonymousResourceCollection
     {
-        //
-    }
+        $sortBy = $request->get('sortBy') ?? 'id';
+        $direction = $request->get('desc', false) ? 'desc' : 'asc';
+        $limit = $request->get('limit', 10);
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $categories = Category::orderBy($sortBy, $direction)->paginate($limit);
+        return CategoryShowResource::collection($categories);
     }
 
     /**
@@ -48,17 +49,6 @@ final class CategoryController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Category $category)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
     {
         //
     }
