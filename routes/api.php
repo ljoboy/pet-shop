@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
+use App\Http\Controllers\Api\V1\CategoryApiController;
 use App\Http\Controllers\Api\V1\FileApiController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Middleware\IsAdmin;
@@ -57,4 +58,8 @@ Route::prefix('v1')->group(function () {
             Route::post('/upload', 'store');
         });
     });
+
+
+        Route::apiResource('categories', CategoryApiController::class);
+
 });
