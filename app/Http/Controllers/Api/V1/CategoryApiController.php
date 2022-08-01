@@ -9,6 +9,8 @@ use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\Api\V1\Category\CategoryShowResource;
 use App\Models\Category;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
@@ -22,7 +24,7 @@ final class CategoryApiController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $sortBy = $request->get('sortBy') ?? 'id';
+        $sortBy = $request->get('sortBy') ?? 'created_at';
         $direction = $request->get('desc', false) ? 'desc' : 'asc';
         $limit = $request->get('limit', 10);
 
@@ -68,10 +70,11 @@ final class CategoryApiController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
-    public function destroy(Category $category)
+    public function destroy(Category $category): Response
     {
-        //
+        $category->delete();
+        return response(null, HttpResponse::HTTP_NO_CONTENT);
     }
 }
