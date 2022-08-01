@@ -12,7 +12,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Str;
 
-final class FileController extends Controller
+final class FileApiController extends Controller
 {
 
     /**

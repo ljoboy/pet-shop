@@ -5,10 +5,9 @@ use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
-use App\Http\Controllers\Api\V1\FileController;
+use App\Http\Controllers\Api\V1\FileApiController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Middleware\IsAdmin;
-use App\Http\Middleware\IsUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,7 +52,7 @@ Route::prefix('v1')->group(function () {
             Route::put('/edit', 'update');
         });
         // File endpoints
-        Route::controller(FileController::class)->prefix('file')->group(function () {
+        Route::controller(FileApiController::class)->prefix('file')->group(function () {
             Route::get('/{file}', 'show');
             Route::post('/upload', 'store');
         });
