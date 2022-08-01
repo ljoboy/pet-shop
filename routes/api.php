@@ -59,7 +59,5 @@ Route::prefix('v1')->group(function () {
         });
     });
 
-
-        Route::apiResource('categories', CategoryApiController::class);
-
+    Route::apiResource('categories', CategoryApiController::class);
 });
