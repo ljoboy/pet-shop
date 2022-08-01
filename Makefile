@@ -5,6 +5,7 @@ install: docker-up
 	docker-compose exec app composer install
 	docker-compose exec app php artisan key:generate
 	docker-compose exec app php artisan storage:link
+	docker-compose exec app php artisan migrate:fresh --seed
 
 helpers:
 	php artisan ide-helper:generate
@@ -30,3 +31,6 @@ app:
 
 db:
 	docker-compose exec db bash
+
+seed:
+	docker-compose exec app php artisan migrate:fresh --seed
