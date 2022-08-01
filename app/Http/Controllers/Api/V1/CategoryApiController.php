@@ -10,6 +10,7 @@ use App\Http\Requests\UpdateCategoryRequest;
 use App\Http\Resources\Api\V1\Category\CategoryShowResource;
 use App\Models\Category;
 use Illuminate\Http\Response;
+use Str;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
@@ -35,12 +36,18 @@ final class CategoryApiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreCategoryRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCategoryRequest $request
+     * @return CategoryShowResource
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request): CategoryShowResource
     {
-        //
+        $validated = $request->validated('title');
+        $created = Category::create([
+            'title' => $validated,
+            'slug' => Str::slug($validated),
+        ]);
+
+        return new CategoryShowResource($created);
     }
 
     /**
@@ -57,7 +64,7 @@ final class CategoryApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateCategoryRequest  $request
+     * @param \App\Http\Requests\UpdateCategoryRequest $request
      * @param Category $category
      * @return \Illuminate\Http\Response
      */
