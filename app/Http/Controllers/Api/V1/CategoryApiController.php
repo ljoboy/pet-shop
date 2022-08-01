@@ -64,13 +64,18 @@ final class CategoryApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \App\Http\Requests\UpdateCategoryRequest $request
+     * @param UpdateCategoryRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return CategoryShowResource
      */
-    public function update(UpdateCategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category): CategoryShowResource
     {
-        //
+        $validated = $request->validated('title');
+        $category->update([
+            'title' => $validated,
+            'slug' => Str::slug($validated),
+        ]);
+        return new CategoryShowResource($category);
     }
 
     /**
