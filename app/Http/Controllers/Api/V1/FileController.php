@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\File\StoreFileRequest;
 use App\Http\Resources\Api\V1\File\FileResource;
 use App\Models\File;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Str;
 
 final class FileController extends Controller
@@ -18,7 +20,7 @@ final class FileController extends Controller
      */
     public function store(StoreFileRequest $request): FileResource
     {
-        $uploadedFile = $request->file('file');
+        $uploadedFile = $request->file;
         $path = $uploadedFile->store('public/pet-shop');
         $file = File::create([
             'name' => Str::random(),
@@ -33,8 +35,9 @@ final class FileController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(File $file): \Illuminate\Http\Response
+    public function show(File $file): Response
     {
+        return response(Storage::get($file->path), 200)->header('Content-Type', $file->type);
     }
 
 }

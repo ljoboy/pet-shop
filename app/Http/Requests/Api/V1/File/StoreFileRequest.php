@@ -5,8 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Requests\Api\V1\File;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 use JetBrains\PhpStorm\ArrayShape;
 
+/**
+ * @property UploadedFile $file
+ */
 class StoreFileRequest extends FormRequest
 {
     /**
