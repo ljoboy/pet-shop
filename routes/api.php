@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
+use App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
@@ -32,6 +33,7 @@ Route::prefix('v1')->group(function () {
         Route::post('reset-password-token', [PasswordResetController::class, 'resetPassword']);
         Route::post('create', [UserApiController::class, 'store']);
     });
+
     Route::prefix('admin')->group(function () {
         Route::controller(AdminAuthController::class)->group(function () {
             Route::post('login', 'login');
@@ -40,17 +42,20 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->group(function () {
-        // Admin endpoint
+        // Admin endpoints
         Route::prefix('admin')->middleware(IsAdmin::class)->group(function () {
             Route::get('user-listing', [AdminApiController::class, 'userListing']);
         });
-        // User endpoint
-        Route::prefix('user')->middleware(IsUser::class)->group(function () {
-            Route::controller(UserApiController::class)->group(function () {
-                Route::get('/', 'show');
-                Route::delete('/', 'destroy');
-                Route::put('/edit', 'update');
-            });
+        // User endpoints
+        Route::prefix('user')->controller(UserApiController::class)->group(function () {
+            Route::get('/', 'show');
+            Route::delete('/', 'destroy');
+            Route::put('/edit', 'update');
+        });
+        // File endpoints
+        Route::controller(FileController::class)->prefix('file')->group(function () {
+            Route::get('/{file}', 'show');
+            Route::post('/upload', 'store');
         });
     });
 });
