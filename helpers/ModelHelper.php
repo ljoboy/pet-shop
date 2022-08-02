@@ -44,8 +44,7 @@ namespace App\Models{
  * @property string $slug
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $products
- * @property-read int|null $products_count
+ * @property-read \App\Models\Product|null $products
  * @method static \Database\Factories\CategoryFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()

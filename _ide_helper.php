@@ -19109,6 +19109,20 @@ namespace  {
             }
              
                 /**
+             * 
+             *
+             * @see \App\Providers\AppServiceProvider::boot()
+             * @param string $column
+             * @param string $search
+             * @return \Illuminate\Database\Eloquent\Builder|static 
+             * @static 
+             */ 
+            public static function whereLike($column, $search)
+            {
+                                return \Illuminate\Database\Eloquent\Builder::whereLike($column, $search);
+            }
+             
+                /**
              * Set the columns to be selected.
              *
              * @param array|mixed $columns
