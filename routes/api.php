@@ -59,5 +59,11 @@ Route::prefix('v1')->group(function () {
         });
     });
 
-    Route::apiResource('categories', CategoryApiController::class);
+    Route::controller(CategoryApiController::class)->prefix('category')->group(function () {
+        Route::get('/create', 'store');
+        Route::get('/{category}', 'show');
+        Route::delete('/{category}', 'destroy');
+        Route::put('/{category}', 'update');
+    });
+    Route::get('/categories', [CategoryApiController::class, 'index']);
 });
