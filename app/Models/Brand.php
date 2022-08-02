@@ -13,4 +13,9 @@ use Illuminate\Database\Eloquent\Model;
 final class Brand extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'slug'
+    ];
 }

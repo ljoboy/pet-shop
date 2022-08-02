@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Brand;
 use Illuminate\Database\Seeder;
 
 
@@ -17,6 +18,7 @@ final class DatabaseSeeder extends Seeder
          $this->call([
              AdminSeeder::class,
              UserSeeder::class,
+             Brand::class,
          ]);
     }
 }
