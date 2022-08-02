@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreCategoryRequest;
-use App\Http\Requests\UpdateCategoryRequest;
+use App\Http\Requests\Api\V1\Category\StoreCategoryRequest;
+use App\Http\Requests\Api\V1\Category\UpdateCategoryRequest;
 use App\Http\Resources\Api\V1\Category\CategoryShowResource;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Str;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 final class CategoryApiController extends Controller
 {

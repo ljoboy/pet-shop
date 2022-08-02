@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Api\V1\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-final class UpdateCategoryRequest extends FormRequest
+final class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +15,7 @@ final class UpdateCategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -26,7 +26,7 @@ final class UpdateCategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string']
+            //
         ];
     }
 }

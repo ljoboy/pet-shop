@@ -30,7 +30,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUuid($value)
- * @mixin \Eloquent
  */
 	final class IdeHelperCategory {}
 }
@@ -78,6 +77,19 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordReset whereToken($value)
  */
 	final class IdeHelperPasswordReset {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\Product
+ *
+ * @method static \Database\Factories\ProductFactory factory(...$parameters)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ * @mixin \Eloquent
+ */
+	final class IdeHelperProduct {}
 }
 
 namespace App\Models{

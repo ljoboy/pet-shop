@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
 use App\Http\Controllers\Api\V1\CategoryApiController;
 use App\Http\Controllers\Api\V1\FileApiController;
+use App\Http\Controllers\Api\V1\ProductApiController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
@@ -66,4 +67,12 @@ Route::prefix('v1')->group(function () {
         Route::put('/{category}', 'update');
     });
     Route::get('/categories', [CategoryApiController::class, 'index']);
+
+    Route::controller(ProductApiController::class)->prefix('product')->group(function () {
+        Route::get('/create', 'store');
+        Route::get('/{product}', 'show');
+        Route::delete('/{product}', 'destroy');
+        Route::put('/{product}', 'update');
+    });
+    Route::get('products', [ProductApiController::class, 'index']);
 });
