@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * @mixin IdeHelperBrand
  */
-final class Brand extends Model
+final class Brand extends MyModel
 {
     use HasFactory;
 
