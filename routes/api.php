@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
+use App\Http\Controllers\Api\V1\BrandApiController;
 use App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Middleware\IsAdmin;
@@ -57,5 +58,13 @@ Route::prefix('v1')->group(function () {
             Route::get('/{file}', 'show');
             Route::post('/upload', 'store');
         });
+
+        Route::controller(BrandApiController::class)->prefix('brand')->group(function () {
+            Route::post('/create', 'store');
+            Route::delete('/{brand}', 'destroy');
+            Route::put('/{brand}', 'update');
+            Route::get('/{brand}', 'show');
+        });
+        Route::get('/brands', [BrandApiController::class, 'index']);
     });
 });
