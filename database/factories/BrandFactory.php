@@ -1,14 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Factories;
 
-use App\Models\File;
+use App\Models\Brand;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Str;
 
 /**
- * @extends Factory<File>
+ * @extends Factory<Brand>
  */
-final class FileFactory extends Factory
+final class BrandFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +20,10 @@ final class FileFactory extends Factory
      */
     public function definition(): array
     {
+        $title = fake()->sentence;
         return [
-            //
+            'title' => $title,
+            'slug' => Str::slug($title),
         ];
     }
 }

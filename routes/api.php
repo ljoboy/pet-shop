@@ -5,11 +5,10 @@ use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
 use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
-use App\Http\Controllers\Api\V1\CategoryApiController;
-use App\Http\Controllers\Api\V1\FileApiController;
-use App\Http\Controllers\Api\V1\ProductApiController;
+use App\Http\Controllers\Api\V1\FileController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\IsUser;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,25 +53,33 @@ Route::prefix('v1')->group(function () {
             Route::put('/edit', 'update');
         });
         // File endpoints
-        Route::controller(FileApiController::class)->prefix('file')->group(function () {
+        Route::controller(FileController::class)->prefix('file')->group(function () {
             Route::get('/{file}', 'show');
             Route::post('/upload', 'store');
         });
-    });
+        Route::controller(BrandApiController::class)->prefix('brand')->group(function () {
+            Route::post('/create', 'store');
+            Route::delete('/{brand}', 'destroy');
+            Route::put('/{brand}', 'update');
+            Route::get('/{brand}', 'show');
+        });
+        Route::get('/brands', [BrandApiController::class, 'index']);
 
-    Route::controller(CategoryApiController::class)->prefix('category')->group(function () {
-        Route::get('/create', 'store');
-        Route::get('/{category}', 'show');
-        Route::delete('/{category}', 'destroy');
-        Route::put('/{category}', 'update');
-    });
-    Route::get('/categories', [CategoryApiController::class, 'index']);
 
-    Route::controller(ProductApiController::class)->prefix('product')->group(function () {
-        Route::get('/create', 'store');
-        Route::get('/{product}', 'show');
-        Route::delete('/{product}', 'destroy');
-        Route::put('/{product}', 'update');
+        Route::controller(CategoryApiController::class)->prefix('category')->group(function () {
+            Route::get('/create', 'store');
+            Route::get('/{category}', 'show');
+            Route::delete('/{category}', 'destroy');
+            Route::put('/{category}', 'update');
+        });
+        Route::get('/categories', [CategoryApiController::class, 'index']);
+
+        Route::controller(ProductApiController::class)->prefix('product')->group(function () {
+            Route::get('/create', 'store');
+            Route::get('/{product}', 'show');
+            Route::delete('/{product}', 'destroy');
+            Route::put('/{product}', 'update');
+        });
+        Route::get('products', [ProductApiController::class, 'index']);
     });
-    Route::get('products', [ProductApiController::class, 'index']);
 });

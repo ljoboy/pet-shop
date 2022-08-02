@@ -12,30 +12,6 @@
 
 namespace App\Models{
 /**
- * App\Models\Category
- *
- * @property string $uuid
- * @property int $id
- * @property string $title
- * @property string $slug
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Database\Factories\CategoryFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Category newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Category query()
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereSlug($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Category whereUuid($value)
- */
-	final class IdeHelperCategory {}
-}
-
-namespace App\Models{
-/**
  * App\Models\File
  *
  * @property string $uuid
@@ -45,7 +21,6 @@ namespace App\Models{
  * @property string $type mime/type
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string $size
  * @method static \Database\Factories\FileFactory factory(...$parameters)
  * @method static \Illuminate\Database\Eloquent\Builder|File newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|File newQuery()
@@ -54,7 +29,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|File whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File wherePath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|File whereSize($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|File whereUuid($value)
@@ -77,19 +51,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|PasswordReset whereToken($value)
  */
 	final class IdeHelperPasswordReset {}
-}
-
-namespace App\Models{
-/**
- * App\Models\Product
- *
- * @method static \Database\Factories\ProductFactory factory(...$parameters)
- * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Product query()
- * @mixin \Eloquent
- */
-	final class IdeHelperProduct {}
 }
 
 namespace App\Models{
