@@ -21,7 +21,12 @@ return new class extends Migration
            $table->index(['id']);
            $table->dropPrimary('id');
            $table->primary(['uuid']);
+           $table->string('title');
+           $table->float('price');
+           $table->text('description');
+           $table->json('metadata');
            $table->timestamps();
+           $table->softDeletes();
         });
     }
 
