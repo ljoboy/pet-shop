@@ -6,11 +6,15 @@ namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Admin\CreateAdminRequest;
+use App\Http\Requests\Api\V1\User\UpdateUserRequest;
 use App\Http\Resources\Api\V1\User\UserCollection;
+use App\Http\Resources\Api\V1\User\UserResource;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 final class AdminApiController extends Controller
 {
@@ -23,15 +27,23 @@ final class AdminApiController extends Controller
      *
      * @param CreateAdminRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function store(CreateAdminRequest $request): JsonResponse
     {
+        $this->authorize('create', User::class);
         $response = $this->userService->create($request->validated());
         return response()->json($response);
     }
 
+    /**
+     * @param Request $request
+     * @return UserCollection
+     * @throws AuthorizationException
+     */
     public function userListing(Request $request): UserCollection
     {
+        $this->authorize('viewAny', User::class);
         $sortBy = $request->get('sortBy') ?? 'id';
         $direction = $request->get('desc', false) ? 'desc' : 'asc';
         $limit = $request->get('limit', 10);
@@ -48,5 +60,21 @@ final class AdminApiController extends Controller
 
         $users = $users->paginate($limit);
         return new UserCollection($users);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateUserRequest $request
+     * @param User $user
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function update(UpdateUserRequest $request, User $user): JsonResponse
+    {
+        $this->authorize('update', $user);
+        $this->userService->update($request->validated(), $user);
+
+        return (new UserResource($user))->response()->setStatusCode(Response::HTTP_ACCEPTED);
     }
 }
