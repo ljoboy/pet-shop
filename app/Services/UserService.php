@@ -23,9 +23,9 @@ class UserService
         return $data;
     }
 
-    public function update(array $user_attributes, User $user): bool
+    public function update(array $user_attributes, ?User $user): ?bool
     {
-        return $user->update($user_attributes);
+        return $user?->update($user_attributes);
     }
 
     /**
