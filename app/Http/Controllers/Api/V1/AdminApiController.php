@@ -12,9 +12,12 @@ use App\Http\Resources\Api\V1\User\UserResource;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class AdminApiController extends Controller
 {
@@ -75,6 +78,18 @@ final class AdminApiController extends Controller
         $this->authorize('update', $user);
         $this->userService->update($request->validated(), $user);
 
-        return (new UserResource($user))->response()->setStatusCode(Response::HTTP_ACCEPTED);
+        return (new UserResource($user))->response()->setStatusCode(HttpResponse::HTTP_ACCEPTED);
+    }
+
+    /**
+     * @param User $user
+     * @return Application|ResponseFactory|Response
+     * @throws AuthorizationException
+     */
+    public function destroy(User $user)
+    {
+        $this->authorize('delete', $user);
+        $this->userService->delete($user);
+        return response(null, HttpResponse::HTTP_NO_CONTENT);
     }
 }
