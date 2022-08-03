@@ -9,6 +9,7 @@ use App\Http\Requests\Api\V1\Category\StoreCategoryRequest;
 use App\Http\Requests\Api\V1\Category\UpdateCategoryRequest;
 use App\Http\Resources\Api\V1\Category\CategoryShowResource;
 use App\Models\Category;
+use App\Policies\CategoryPolicy;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
@@ -17,6 +18,12 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class CategoryApiController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(CategoryPolicy::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
