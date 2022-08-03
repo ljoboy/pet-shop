@@ -2,15 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api\V1\Auth\User;
+namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Http\Controllers\Api\V1\Auth\AuthController;
-use App\Http\Requests\Api\V1\User\ResetPasswordRequest;
 use App\Http\Requests\Api\V1\User\UserAuthRequest;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
-use Str;
-use Symfony\Component\HttpFoundation\Response;
 
 final class UserAuthController extends AuthController
 {

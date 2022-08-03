@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Api\V1\Auth\Admin;
+namespace App\Http\Controllers\Api\V1\Auth;
 
-use App\Http\Controllers\Api\V1\Auth\AuthController;
 use App\Http\Requests\Api\V1\Admin\AdminAuthRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 
 final class AdminAuthController extends AuthController
 {
