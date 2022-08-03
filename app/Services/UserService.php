@@ -23,17 +23,17 @@ class UserService
         return $data;
     }
 
-    public function update(array $user_attributes, User $user)
+    public function update(array $user_attributes, User $user): bool
     {
         return $user->update($user_attributes);
     }
 
     /**
-     * @param User $user
+     * @param User|null $user
      * @return bool|null
      */
-    public function delete(User $user): ?bool
+    public function delete(?User $user): ?bool
     {
-        return $user->delete();
+        return $user?->delete();
     }
 }
