@@ -16,6 +16,12 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class ProductApiController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Product::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -32,7 +38,7 @@ final class ProductApiController extends Controller
         $request->get('category') && $products->where('category_uuid', '=', $request->get('category'));
         $request->get('price') && $products->where('price', '<', $request->get('price'));
         $request->get('brand') && $products->where('metadata->brand', '=', $request->get('brand'));
-        $request->get('title') && $products->where('title', 'LIKE' ,"%{$request->get('title')}%");
+        $request->get('title') && $products->where('title', 'LIKE', "%{$request->get('title')}%");
 
         $products = $products->paginate($limit);
         return ProductShowResource::collection($products);
