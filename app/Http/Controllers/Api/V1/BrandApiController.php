@@ -16,6 +16,11 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class BrandApiController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Brand::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
