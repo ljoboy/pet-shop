@@ -15,7 +15,7 @@ final class StoreProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,7 +26,13 @@ final class StoreProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category_uuid' => ['required', 'uuid'],
+            'title' => ['required', 'string'],
+            'price' => ['required', 'numeric'],
+            'description' => ['required', 'string'],
+            'metadata' => ['required', 'array'],
+            'metadata.brand' => ['required', 'uuid'],
+            'metadata.image' => ['nullable', 'uuid'],
         ];
     }
 }

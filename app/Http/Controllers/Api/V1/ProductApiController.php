@@ -11,6 +11,7 @@ use App\Http\Resources\Api\V1\Product\ProductShowResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class ProductApiController extends Controller
@@ -26,9 +27,12 @@ final class ProductApiController extends Controller
         $sortBy = $request->get('sortBy') ?? 'created_at';
         $direction = $request->get('desc', false) ? 'desc' : 'asc';
         $limit = $request->get('limit', 10);
-        $products = Product::orderBy($sortBy, $direction);
+        $products = Product::with(['category', 'brand'])->orderBy($sortBy, $direction);
 
-        
+        $request->get('category') && $products->where('category_uuid', '=', $request->get('category'));
+        $request->get('price') && $products->where('price', '<', $request->get('price'));
+        $request->get('brand') && $products->where('metadata->brand', '=', $request->get('brand'));
+        $request->get('title') && $products->where('title', 'LIKE' ,"%{$request->get('title')}%");
 
         $products = $products->paginate($limit);
         return ProductShowResource::collection($products);
@@ -37,12 +41,14 @@ final class ProductApiController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\Api\V1\Product\StoreProductRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreProductRequest $request
+     * @return ProductShowResource
      */
     public function store(StoreProductRequest $request)
     {
-        //
+        $product = Product::create($request->validated());
+
+        return new ProductShowResource($product);
     }
 
     /**
@@ -59,20 +65,22 @@ final class ProductApiController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\Api\V1\Product\UpdateProductRequest  $request
+     * @param UpdateProductRequest $request
      * @param Product $product
-     * @return \Illuminate\Http\Response
+     * @return ProductShowResource
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update($request->validated());
+
+        return new ProductShowResource($product);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Product $product
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Product $product)
     {
