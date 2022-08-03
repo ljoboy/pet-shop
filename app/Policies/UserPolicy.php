@@ -102,13 +102,4 @@ final class UserPolicy
     {
         return $user->uuid === $model->uuid;
     }
-
-    /**
-     * @param User $user
-     * @return bool
-     */
-    public function logoutAdmin(User $user): bool
-    {
-        return $user->is_admin;
-    }
 }
