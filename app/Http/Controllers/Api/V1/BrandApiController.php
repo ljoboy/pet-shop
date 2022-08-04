@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\Api\V1\Brand\StoreBrandRequest;
 use App\Http\Requests\Api\V1\Brand\UpdateBrandRequest;
 use App\Http\Resources\Api\V1\Brand\ShowBrandResource;
 use App\Models\Brand;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Str;
 use Symfony\Component\HttpFoundation\Response;
 
-final class BrandApiController extends Controller
+final class BrandApiController extends ApiController
 {
     public function __construct()
     {
@@ -35,6 +36,7 @@ final class BrandApiController extends Controller
 
         $brands = Brand::orderBy($sortBy, $direction);
         $brands->paginate($limit);
+
         return ShowBrandResource::collection($brands);
     }
 
@@ -42,27 +44,26 @@ final class BrandApiController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreBrandRequest $request
-     * @return ShowBrandResource
+     * @return JsonResponse
      */
-    public function store(StoreBrandRequest $request)
+    public function store(StoreBrandRequest $request): JsonResponse
     {
         $brand_infos = $request->validated();
         $brand_infos['slug'] = Str::slug($brand_infos['title']);
-
         $brand = Brand::create($brand_infos);
 
-        return new ShowBrandResource($brand);
+        return $this->responseSuccess(data: new ShowBrandResource($brand), code: Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
      * @param Brand $brand
-     * @return ShowBrandResource
+     * @return JsonResponse
      */
-    public function show(Brand $brand): ShowBrandResource
+    public function show(Brand $brand): JsonResponse
     {
-        return new ShowBrandResource($brand);
+        return $this->responseSuccess(data: new ShowBrandResource($brand));
     }
 
     /**
@@ -70,16 +71,16 @@ final class BrandApiController extends Controller
      *
      * @param UpdateBrandRequest $request
      * @param Brand $brand
-     * @return ShowBrandResource
+     * @return JsonResponse
      */
-    public function update(UpdateBrandRequest $request, Brand $brand): ShowBrandResource
+    public function update(UpdateBrandRequest $request, Brand $brand): JsonResponse
     {
         $brand_infos = $request->validated();
         $brand_infos['slug'] = Str::slug($brand_infos['title']);
 
         $brand->update($brand_infos);
 
-        return new ShowBrandResource($brand);
+        return $this->responseSuccess(data: new ShowBrandResource($brand));
     }
 
     /**
@@ -91,6 +92,6 @@ final class BrandApiController extends Controller
     public function destroy(Brand $brand): Response
     {
         $brand->delete();
-        return response(null, Response::HTTP_NO_CONTENT);
+        return $this->responseSuccess(data: null, code: Response::HTTP_NO_CONTENT);
     }
 }
