@@ -36,6 +36,10 @@ abstract class ApiController extends Controller
             $response['trace'] = $extra;
         }
 
+        if ($success) {
+            $response['extra'] = $extra;
+        }
+
         return response()->json($response, $code);
     }
 
