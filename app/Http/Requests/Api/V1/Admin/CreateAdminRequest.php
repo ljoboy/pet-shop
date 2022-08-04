@@ -43,8 +43,8 @@ final class CreateAdminRequest extends FormRequest
             'password' => ['required', 'confirmed', 'min:8'],
             'address' => ['required', 'string'],
             'phone_number' => ['required', 'string'],
-            'is_marketing' => ['boolean'],
-            'avatar' => ['required', 'uuid', 'exists,files'],
+            'is_marketing' => ['nullable', 'boolean'],
+            'avatar' => ['required', 'uuid', 'exists:files,uuid'],
         ];
     }
 }
