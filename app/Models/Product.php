@@ -24,7 +24,11 @@ final class Product extends MyModel
     ];
 
     protected $casts = [
-        'metadata' => 'json'
+        'metadata' => 'json',
+    ];
+
+    protected $hidden = [
+        'id',
     ];
 
     /**
