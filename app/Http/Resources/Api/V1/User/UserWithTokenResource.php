@@ -16,15 +16,14 @@ use PHPOpenSourceSaver\JWTAuth\JWTGuard;
 use PHPOpenSourceSaver\JWTAuth\Token;
 
 /**
- * @property mixed $id
- * @property mixed $uuid
- * @property mixed $first_name
- * @property mixed $last_name
- * @property mixed $email
- * @property mixed $address
- * @property mixed $phone_number
- * @property mixed $updated_at
- * @property mixed $created_at
+ * @property string $uuid
+ * @property string $first_name
+ * @property string $last_name
+ * @property string $email
+ * @property string $address
+ * @property string $phone_number
+ * @property string $updated_at
+ * @property string $created_at
  */
 final class UserWithTokenResource extends JsonResource
 {
@@ -32,7 +31,7 @@ final class UserWithTokenResource extends JsonResource
      * Transform the resource into an array.
      *
      * @param  Request  $request
-     * @return array|Arrayable<string, mixed>|JsonSerializable
+     * @return array|Arrayable<string, string>|JsonSerializable
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
