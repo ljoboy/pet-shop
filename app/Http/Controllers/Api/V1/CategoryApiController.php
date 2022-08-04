@@ -4,19 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\Api\V1\Category\StoreCategoryRequest;
 use App\Http\Requests\Api\V1\Category\UpdateCategoryRequest;
 use App\Http\Resources\Api\V1\Category\CategoryShowResource;
 use App\Models\Category;
 use App\Policies\CategoryPolicy;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Str;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
-final class CategoryApiController extends Controller
+final class CategoryApiController extends ApiController
 {
 
     public function __construct()
@@ -44,9 +45,9 @@ final class CategoryApiController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreCategoryRequest $request
-     * @return CategoryShowResource
+     * @return JsonResponse
      */
-    public function store(StoreCategoryRequest $request): CategoryShowResource
+    public function store(StoreCategoryRequest $request): JsonResponse
     {
         $validated = $request->validated('title');
         $created = Category::create([
@@ -54,18 +55,18 @@ final class CategoryApiController extends Controller
             'slug' => Str::slug($validated),
         ]);
 
-        return new CategoryShowResource($created);
+        return $this->responseSuccess(data: new CategoryShowResource($created), code: HttpResponse::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      *
      * @param Category $category
-     * @return CategoryShowResource
+     * @return JsonResponse
      */
-    public function show(Category $category): CategoryShowResource
+    public function show(Category $category): JsonResponse
     {
-        return new CategoryShowResource($category);
+        return $this->responseSuccess(data: new CategoryShowResource($category));
     }
 
     /**
@@ -73,27 +74,27 @@ final class CategoryApiController extends Controller
      *
      * @param UpdateCategoryRequest $request
      * @param Category $category
-     * @return CategoryShowResource
+     * @return JsonResponse
      */
-    public function update(UpdateCategoryRequest $request, Category $category): CategoryShowResource
+    public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
     {
         $validated = $request->validated('title');
         $category->update([
             'title' => $validated,
             'slug' => Str::slug($validated),
         ]);
-        return new CategoryShowResource($category);
+        return $this->responseSuccess(data: new CategoryShowResource($category));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Category $category
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(Category $category): Response
+    public function destroy(Category $category): JsonResponse
     {
         $category->delete();
-        return response(null, HttpResponse::HTTP_NO_CONTENT);
+        return $this->responseSuccess(data: null, code: HttpResponse::HTTP_NO_CONTENT);
     }
 }
