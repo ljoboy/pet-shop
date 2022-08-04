@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Staudenmeir\EloquentJsonRelations\HasJsonRelationships;
 
-
 /**
  * @mixin IdeHelperProduct
  */
 final class Product extends MyModel
 {
-    use HasFactory, HasJsonRelationships;
+    use HasFactory;
+    use HasJsonRelationships;
 
     protected $fillable = [
         'title',
@@ -44,6 +44,6 @@ final class Product extends MyModel
      */
     public function brand(): BelongsTo
     {
-        return $this->belongsTo(Brand::class,  'metadata->brand', 'uuid');
+        return $this->belongsTo(Brand::class, 'metadata->brand', 'uuid');
     }
 }

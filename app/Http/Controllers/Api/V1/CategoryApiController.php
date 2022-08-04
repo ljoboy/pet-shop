@@ -19,7 +19,6 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class CategoryApiController extends ApiController
 {
-
     public function __construct()
     {
         $this->authorizeResource(CategoryPolicy::class);

@@ -11,7 +11,6 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 abstract class AuthController extends ApiController
 {
-
     /**
      * @param bool $is_admin
      * @return JsonResponse
