@@ -27,9 +27,9 @@ final class ProductFactory extends Factory
             'description' => fake()->sentence(),
             'title' => fake()->word(),
             'metadata' => [
-                              'brand' => fake()->randomElement($brands),
-                              'image' => null,
-                          ],
+                'brand' => fake()->randomElement($brands),
+                'image' => null,
+            ],
         ];
     }
 }
