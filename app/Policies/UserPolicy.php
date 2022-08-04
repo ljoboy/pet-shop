@@ -52,10 +52,10 @@ final class UserPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param User $user
+     * @param User|null $user
      * @return Response|bool
      */
-    public function create(User $user): Response|bool
+    public function create(?User $user): Response|bool
     {
         return true;
     }
