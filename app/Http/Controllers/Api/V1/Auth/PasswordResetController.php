@@ -14,7 +14,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 final class PasswordResetController extends ApiController
 {
-
     public function resetPassword(ResetPasswordRequest $request): JsonResponse
     {
         $credentials = $request->only(['email', 'token', 'password', 'password_confirmation']);
