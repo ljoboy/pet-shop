@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+
 /**
  * @mixin IdeHelperCategory
  */
@@ -19,10 +20,10 @@ final class Category extends MyModel
     ];
 
     /**
-     * @return BelongsTo<Product, Category>
+     * @return HasMany<Product>
      */
-    public function products(): BelongsTo
+    public function products(): HasMany
     {
-        return $this->belongsTo(Product::class, 'category_uuid', 'uuid');
+        return $this->hasMany(Product::class, 'category_uuid', 'uuid');
     }
 }
