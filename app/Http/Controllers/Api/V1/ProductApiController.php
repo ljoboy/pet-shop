@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 final class ProductApiController extends ApiController
 {
-
     public function __construct()
     {
         $this->authorizeResource(Product::class);

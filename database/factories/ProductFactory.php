@@ -23,7 +23,7 @@ final class ProductFactory extends Factory
     {
         $brands = Brand::all('uuid')->pluck('uuid')->toArray();
         return [
-            'price' => fake()->randomFloat(2,0, 100),
+            'price' => fake()->randomFloat(2, 0, 100),
             'description' => fake()->sentence(),
             'title' => fake()->word(),
             'metadata' => [

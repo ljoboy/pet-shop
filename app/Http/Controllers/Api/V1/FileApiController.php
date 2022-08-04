@@ -16,7 +16,6 @@ use Str;
 
 final class FileApiController extends ApiController
 {
-
     /**
      * Store a newly created resource in storage.
      * @throws AuthorizationException
@@ -46,5 +45,4 @@ final class FileApiController extends ApiController
         $this->authorize('view', $file);
         return response(Storage::get($file->path))->header('Content-Type', $file->type);
     }
-
 }

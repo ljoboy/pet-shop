@@ -14,7 +14,7 @@ abstract class MyModel extends Model
     protected static function boot()
     {
         parent::boot();
-        static::creating(function($model){
+        static::creating(function ($model) {
             $model->uuid = Str::uuid()->toString();
         });
     }
