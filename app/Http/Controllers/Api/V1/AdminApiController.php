@@ -4,34 +4,48 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\Api\V1\Admin\CreateAdminRequest;
-use App\Http\Resources\Api\V1\User\UserCollection;
+use App\Http\Requests\Api\V1\User\UpdateUserRequest;
+use App\Http\Resources\Api\V1\User\UserResource;
+use App\Http\Resources\Api\V1\User\UserWithTokenResource;
 use App\Models\User;
 use App\Services\UserService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
-final class AdminApiController extends Controller
+final class AdminApiController extends ApiController
 {
     public function __construct(private readonly UserService $userService)
     {
     }
+
 
     /**
      * Store a newly created resource in storage.
      *
      * @param CreateAdminRequest $request
      * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function store(CreateAdminRequest $request): JsonResponse
     {
-        $response = $this->userService->create($request->validated());
-        return response()->json($response);
+        $this->authorize('create', User::class);
+        $user = User::create($request->validated());
+        return $this->responseSuccess(new UserWithTokenResource($user));
     }
 
-    public function userListing(Request $request): UserCollection
+    /**
+     * @param Request $request
+     * @return AnonymousResourceCollection
+     * @throws AuthorizationException
+     */
+    public function userListing(Request $request): AnonymousResourceCollection
     {
+        $this->authorize('viewAny', User::class);
         $sortBy = $request->get('sortBy') ?? 'id';
         $direction = $request->get('desc', false) ? 'desc' : 'asc';
         $limit = $request->get('limit', 10);
@@ -47,6 +61,34 @@ final class AdminApiController extends Controller
         $request->get('marketing') && $users->where('is_marketing', '=', $request->get('marketing'));
 
         $users = $users->paginate($limit);
-        return new UserCollection($users);
+        return UserResource::collection($users);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param UpdateUserRequest $request
+     * @param User $user
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function update(UpdateUserRequest $request, User $user): JsonResponse
+    {
+        $this->authorize('update', $user);
+        $this->userService->update($request->validated(), $user);
+
+        return $this->responseSuccess(data: new UserResource($user), code: HttpResponse::HTTP_ACCEPTED);
+    }
+
+    /**
+     * @param User $user
+     * @return JsonResponse
+     * @throws AuthorizationException
+     */
+    public function destroy(User $user)
+    {
+        $this->authorize('delete', $user);
+        $this->userService->delete($user);
+        return $this->responseSuccess(data: null, code: HttpResponse::HTTP_NO_CONTENT);
     }
 }

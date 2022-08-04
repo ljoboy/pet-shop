@@ -7,6 +7,10 @@ use Illuminate\Support\Str;
 
 abstract class MyModel extends Model
 {
+    protected $hidden = [
+        'id',
+    ];
+
     protected static function boot()
     {
         parent::boot();

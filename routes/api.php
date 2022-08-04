@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\Api\V1\AdminApiController;
-use App\Http\Controllers\Api\V1\Auth\Admin\AdminAuthController;
+use App\Http\Controllers\Api\V1\Auth\AdminAuthController;
 use App\Http\Controllers\Api\V1\Auth\ForgotPasswordController;
 use App\Http\Controllers\Api\V1\Auth\PasswordResetController;
-use App\Http\Controllers\Api\V1\Auth\User\UserAuthController;
+use App\Http\Controllers\Api\V1\Auth\UserAuthController;
+use App\Http\Controllers\Api\V1\BrandApiController;
+use App\Http\Controllers\Api\V1\CategoryApiController;
+use App\Http\Controllers\Api\V1\FileApiController;
 use App\Http\Controllers\Api\V1\FileController;
+use App\Http\Controllers\Api\V1\ProductApiController;
 use App\Http\Controllers\Api\V1\UserApiController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsUser;
@@ -23,63 +27,49 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::prefix('v1')->group(function () {
-    // Auth endpoint
+    // Admin endpoints
+    Route::prefix('admin')->group(function () {
+        Route::controller(AdminAuthController::class)->group(function () {
+            Route::post('/login', 'login');
+            Route::get('/logout', 'logout');
+        });
+        Route::controller(AdminApiController::class)->group(function () {
+            Route::post('/create', 'store');
+            Route::get('/user-listing', 'userListing');
+            Route::put('/user-edit/{user}', 'update');
+            Route::delete('/user-delete/{user}', 'destroy');
+        });
+    });
+    // User endpoints
     Route::prefix('user')->group(function () {
         Route::controller(UserAuthController::class)->group(function () {
-            Route::post('login', 'login');
-            Route::get('logout', 'logout');
+            Route::post('/login', 'login');
+            Route::get('/logout', 'logout');
         });
         Route::post('forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
         Route::post('reset-password-token', [PasswordResetController::class, 'resetPassword']);
-        Route::post('create', [UserApiController::class, 'store']);
-    });
-
-    Route::prefix('admin')->group(function () {
-        Route::controller(AdminAuthController::class)->group(function () {
-            Route::post('login', 'login');
-            Route::get('logout', 'logout');
-        });
-    });
-
-    Route::middleware('auth:api')->group(function () {
-        // Admin endpoints
-        Route::prefix('admin')->middleware(IsAdmin::class)->group(function () {
-            Route::get('user-listing', [AdminApiController::class, 'userListing']);
-        });
-        // User endpoints
-        Route::prefix('user')->controller(UserApiController::class)->group(function () {
+        Route::controller(UserApiController::class)->group(function () {
             Route::get('/', 'show');
             Route::delete('/', 'destroy');
             Route::put('/edit', 'update');
-        });
-        // File endpoints
-        Route::controller(FileController::class)->prefix('file')->group(function () {
-            Route::get('/{file}', 'show');
-            Route::post('/upload', 'store');
-        });
-        Route::controller(BrandApiController::class)->prefix('brand')->group(function () {
             Route::post('/create', 'store');
-            Route::delete('/{brand}', 'destroy');
-            Route::put('/{brand}', 'update');
-            Route::get('/{brand}', 'show');
         });
-        Route::get('/brands', [BrandApiController::class, 'index']);
-
-
-        Route::controller(CategoryApiController::class)->prefix('category')->group(function () {
-            Route::get('/create', 'store');
-            Route::get('/{category}', 'show');
-            Route::delete('/{category}', 'destroy');
-            Route::put('/{category}', 'update');
-        });
-        Route::get('/categories', [CategoryApiController::class, 'index']);
-
-        Route::controller(ProductApiController::class)->prefix('product')->group(function () {
-            Route::get('/create', 'store');
-            Route::get('/{product}', 'show');
-            Route::delete('/{product}', 'destroy');
-            Route::put('/{product}', 'update');
-        });
-        Route::get('products', [ProductApiController::class, 'index']);
+    });
+    // Brand endpoints
+    Route::get('/brands', [BrandApiController::class, 'index']);
+    Route::post('/brand/create', [BrandApiController::class, 'store']);
+    Route::apiResource('brand', BrandApiController::class)->except(['index', 'store']);
+    // Categorie endpoints
+    Route::get('/categories', [CategoryApiController::class, 'index']);
+    Route::post('/categorie/create', [CategoryApiController::class, 'store']);
+    Route::apiResource('categorie', CategoryApiController::class)->except(['index', 'store']);
+    // Product endpoints
+    Route::get('/products', [ProductApiController::class, 'index']);
+    Route::post('/product/create', [ProductApiController::class, 'store']);
+    Route::apiResource('product', ProductApiController::class)->except(['index', 'store']);
+    // File endpoints
+    Route::controller(FileApiController::class)->prefix('file')->group(function () {
+        Route::post('upload', 'store');
+        Route::get('/{file}', 'show');
     });
 });

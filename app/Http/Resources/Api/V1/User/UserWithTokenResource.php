@@ -8,6 +8,12 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use JsonSerializable;
+use PHPOpenSourceSaver\JWTAuth\Claims\JwtId;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTFactory;
+use PHPOpenSourceSaver\JWTAuth\JWT;
+use PHPOpenSourceSaver\JWTAuth\JWTGuard;
+use PHPOpenSourceSaver\JWTAuth\Token;
 
 /**
  * @property string $uuid
@@ -16,18 +22,16 @@ use JsonSerializable;
  * @property string $email
  * @property string $address
  * @property string $phone_number
- * @property boolean $is_marketing
- * @property string $created_at
  * @property string $updated_at
- * @property string $avatar
+ * @property string $created_at
  */
-final class UserResource extends JsonResource
+final class UserWithTokenResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
-     * @return array|Arrayable<string, mixed>|JsonSerializable
+     * @param  Request  $request
+     * @return array|Arrayable<string, string>|JsonSerializable
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
@@ -38,10 +42,9 @@ final class UserResource extends JsonResource
             "email" => $this->email,
             "address" => $this->address,
             "phone_number" => $this->phone_number,
-            "is_marketing" => $this->is_marketing,
-            "created_at" => $this->created_at,
             "updated_at" => $this->updated_at,
-            "avatar" => $this->avatar
+            "created_at" => $this->created_at,
+            "token" => auth()->attempt($request->only(['email', 'password']))
         ];
     }
 }
