@@ -44,8 +44,8 @@ final class UserApiController extends ApiController
      */
     public function show(): JsonResponse
     {
-        $this->authorize('view', User::class);
         $user = auth()->user();
+        $this->authorize('view', $user);
         return $this->responseSuccess(data: new UserResource($user));
     }
 
