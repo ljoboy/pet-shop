@@ -4,17 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Api\V1;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 use App\Http\Requests\Api\V1\Product\StoreProductRequest;
 use App\Http\Requests\Api\V1\Product\UpdateProductRequest;
 use App\Http\Resources\Api\V1\Product\ProductShowResource;
 use App\Models\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Http\Response;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
-final class ProductApiController extends Controller
+final class ProductApiController extends ApiController
 {
 
     public function __construct()
@@ -48,24 +49,24 @@ final class ProductApiController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreProductRequest $request
-     * @return ProductShowResource
+     * @return JsonResponse
      */
     public function store(StoreProductRequest $request)
     {
         $product = Product::create($request->validated());
 
-        return new ProductShowResource($product);
+        return $this->responseSuccess(data: new ProductShowResource($product));
     }
 
     /**
      * Display the specified resource.
      *
      * @param Product $product
-     * @return ProductShowResource
+     * @return JsonResponse
      */
-    public function show(Product $product): ProductShowResource
+    public function show(Product $product): JsonResponse
     {
-        return new ProductShowResource($product);
+        return $this->responseSuccess(data: new ProductShowResource($product));
     }
 
     /**
@@ -73,24 +74,24 @@ final class ProductApiController extends Controller
      *
      * @param UpdateProductRequest $request
      * @param Product $product
-     * @return ProductShowResource
+     * @return JsonResponse
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
         $product->update($request->validated());
 
-        return new ProductShowResource($product);
+        return $this->responseSuccess(data: new ProductShowResource($product));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Product $product
-     * @return Response
+     * @return JsonResponse
      */
-    public function destroy(Product $product)
+    public function destroy(Product $product): JsonResponse
     {
         $product->delete();
-        return response(null, HttpResponse::HTTP_NO_CONTENT);
+        return $this->responseSuccess(data: null, code: HttpResponse::HTTP_NO_CONTENT);
     }
 }
