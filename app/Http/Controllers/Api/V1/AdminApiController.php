@@ -34,7 +34,9 @@ final class AdminApiController extends ApiController
     public function store(CreateAdminRequest $request): JsonResponse
     {
         $this->authorize('create', User::class);
-        $user = User::create($request->validated());
+        $validated =$request->validated();
+        $validated['is_admin'] = true;
+        $user = User::create($validated);
         return $this->responseSuccess(new UserWithTokenResource($user));
     }
 
@@ -50,17 +52,15 @@ final class AdminApiController extends ApiController
         $direction = $request->get('desc', false) ? 'desc' : 'asc';
         $limit = $request->get('limit', 10);
 
-
-        $users = User::orderBy($sortBy, $direction);
-
+        $users = User::where('is_admin', 0);
         $request->get('first_name') && $users->where('first_name', 'LIKE', '%' . $request->get('first_name') . '%');
         $request->get('email') && $users->where('email', 'LIKE', '%' . $request->get('email') . '%');
         $request->get('phone') && $users->where('phone_number', '=', $request->get('phone'));
         $request->get('address') && $users->where('address', 'LIKE', '%' . $request->get('address') . '%');
         $request->get('created_at') && $users->where('created_at', '=', $request->get('created_at'));
         $request->get('marketing') && $users->where('is_marketing', '=', $request->get('marketing'));
+        $users = $users->orderBy($sortBy, $direction)->paginate($limit);
 
-        $users = $users->paginate($limit);
         return UserResource::collection($users);
     }
 
