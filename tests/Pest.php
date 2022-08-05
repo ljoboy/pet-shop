@@ -11,7 +11,12 @@
 |
 */
 
-uses(Tests\TestCase::class, \Illuminate\Foundation\Testing\RefreshDatabase::class)->in('Feature');
+use Database\Seeders\DatabaseSeeder;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(Tests\TestCase::class, RefreshDatabase::class)->beforeEach(function () {
+    $this->seed(DatabaseSeeder::class);
+})->in('Feature');
 
 /*
 |--------------------------------------------------------------------------
