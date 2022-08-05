@@ -11,7 +11,8 @@ final class UserAuthController extends AuthController
 {
     public function login(UserAuthRequest $request): JsonResponse
     {
-        return $this->loginAttempt($request->only(['email', 'password']), false);
+        return $this->loginAttempt($request->validated(
+        ), false);
     }
 
     public function logout(): JsonResponse

@@ -11,7 +11,7 @@ final class AdminAuthController extends AuthController
 {
     public function login(AdminAuthRequest $request): JsonResponse
     {
-        return $this->loginAttempt($request->only(['email', 'password']), true);
+        return $this->loginAttempt($request->validated(), true);
     }
 
     public function logout(): JsonResponse

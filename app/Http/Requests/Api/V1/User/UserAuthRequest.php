@@ -26,8 +26,8 @@ final class UserAuthRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => ['sometimes', 'string'],
-            'password' => ['sometimes', 'string'],
+            'email' => ['required', 'email'],
+            'password' => ['required', 'string'],
         ];
     }
 }
