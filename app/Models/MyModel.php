@@ -14,15 +14,14 @@ abstract class MyModel extends Model
     /**
      * Retrieve the model for a bound value.
      *
-     * @param string|int|float|bool $value
-     * @param string|null $field
+     * @param  string|int|float|bool  $value
+     * @param  string|null  $field
      * @return Model|null
      */
     public function resolveRouteBinding($value, $field = null): ?Model
     {
         return $this->where('uuid', $value)->firstOrFail();
     }
-
 
     protected static function boot()
     {
