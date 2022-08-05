@@ -17,9 +17,9 @@ final class ForceJson
      *
      * @param Request $request
      * @param Closure $next
-     * @return Response|RedirectResponse
+     * @return JsonResponse
      */
-    public function handle(Request $request, Closure $next): Response|RedirectResponse
+    public function handle(Request $request, Closure $next): JsonResponse
     {
         $request->headers->set('Accept', 'application/json');
         return $next($request);
