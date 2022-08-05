@@ -63,16 +63,6 @@ final class User extends Authenticatable implements JWTSubject
         'is_marketing' => 'boolean',
     ];
 
-    protected static function boot(): void
-    {
-        parent::boot();
-        User::creating(function ($model): void {
-            $model->id = static::max('id') + 1;
-            $model->uuid = Str::uuid()->toString();
-            $model->password = Hash::make($model->password);
-        });
-    }
-
     public function getJWTIdentifier(): mixed
     {
         return $this->getKey();
@@ -89,12 +79,22 @@ final class User extends Authenticatable implements JWTSubject
     /**
      * Retrieve the model for a bound value.
      *
-     * @param  mixed  $value
+     * @param  string|int|float|bool  $value
      * @param  string|null  $field
      * @return Model|null
      */
     public function resolveRouteBinding($value, $field = null): ?Model
     {
         return $this->where('uuid', $value)->firstOrFail();
+    }
+
+    protected static function boot(): void
+    {
+        parent::boot();
+        User::creating(function ($model): void {
+            $model->id = User::max('id') + 1;
+            $model->uuid = Str::uuid()->toString();
+            $model->password = Hash::make($model->password);
+        });
     }
 }
