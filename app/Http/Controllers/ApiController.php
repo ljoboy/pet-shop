@@ -56,7 +56,7 @@ abstract class ApiController extends Controller
         int $code = 422,
         array $trace = []
     ): JsonResponse {
-        return $this->response(data: [], error: $error, errors: $errors, code: $code, extra: $trace, success: true);
+        return $this->response(data: [], error: $error, errors: $errors, code: $code, extra: $trace, success: false);
     }
 
     protected function responseSuccess(
