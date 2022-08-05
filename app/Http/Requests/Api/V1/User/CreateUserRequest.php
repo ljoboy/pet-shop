@@ -22,7 +22,7 @@ final class CreateUserRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array<string, array<int, string>>
      */
     #[ArrayShape([
         'first_name' => 'string[]',

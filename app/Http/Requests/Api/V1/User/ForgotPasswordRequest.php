@@ -22,7 +22,7 @@ final class ForgotPasswordRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, array<string>>
+     * @return array<string, array<int, string>>
      */
     #[ArrayShape(['email' => 'string[]'])]
     public function rules(): array

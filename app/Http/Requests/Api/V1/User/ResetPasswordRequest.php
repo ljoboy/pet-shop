@@ -22,7 +22,7 @@ final class ResetPasswordRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, mixed>
+     * @return array<string, array<int, string>>
      */
     #[ArrayShape(['email' => 'string[]', 'token' => 'string[]', 'password' => 'string[]'])]
     public function rules(): array
