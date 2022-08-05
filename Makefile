@@ -1,11 +1,12 @@
-.PHONY: install helpers analyse docker-up test down app db
+.PHONY: install helpers
+
+all: install seed
 
 install: docker-up
 	docker-compose exec app rm -rf vendor composer.lock
 	docker-compose exec app composer install
 	docker-compose exec app php artisan key:generate
 	docker-compose exec app php artisan storage:link
-	docker-compose exec app php artisan migrate:fresh --seed
 
 helpers:
 	php artisan ide-helper:generate
@@ -15,6 +16,9 @@ helpers:
 analyse:
 	./vendor/bin/pint
 	./vendor/bin/phpstan analyse
+
+insight:
+	docker-compose exec app php artisan insight
 
 docker-up:
 	docker-compose build app
