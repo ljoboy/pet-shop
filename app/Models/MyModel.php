@@ -11,6 +11,19 @@ abstract class MyModel extends Model
         'id',
     ];
 
+    /**
+     * Retrieve the model for a bound value.
+     *
+     * @param string|int|float|bool $value
+     * @param string|null $field
+     * @return Model|null
+     */
+    public function resolveRouteBinding($value, $field = null): ?Model
+    {
+        return $this->where('uuid', $value)->firstOrFail();
+    }
+
+
     protected static function boot()
     {
         parent::boot();
@@ -18,17 +31,5 @@ abstract class MyModel extends Model
             $model->id = static::max('id') + 1;
             $model->uuid = Str::uuid()->toString();
         });
-    }
-
-    /**
-     * Retrieve the model for a bound value.
-     *
-     * @param  mixed  $value
-     * @param  string|null  $field
-     * @return Model|null
-     */
-    public function resolveRouteBinding($value, $field = null): ?Model
-    {
-        return $this->where('uuid', $value)->firstOrFail();
     }
 }
