@@ -23,7 +23,8 @@ return [
     'ide' => 'phpstorm',
 
     'exclude' => [
-        'app/Providers'
+        'app/Providers',
+        'helpers/ModelHelper.php'
     ],
 
     'add' => [],
