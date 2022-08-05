@@ -15,6 +15,7 @@ abstract class MyModel extends Model
     {
         parent::boot();
         static::creating(function ($model) {
+            $model->id = static::max('id') + 1;
             $model->uuid = Str::uuid()->toString();
         });
     }

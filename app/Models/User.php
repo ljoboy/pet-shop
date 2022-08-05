@@ -67,6 +67,7 @@ final class User extends Authenticatable implements JWTSubject
     {
         parent::boot();
         User::creating(function ($model): void {
+            $model->id = static::max('id') + 1;
             $model->uuid = Str::uuid()->toString();
             $model->password = Hash::make($model->password);
         });

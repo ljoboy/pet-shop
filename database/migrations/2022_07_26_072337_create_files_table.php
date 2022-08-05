@@ -14,11 +14,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('files', function (Blueprint $table) {
-           $table->uuid();
-           $table->bigIncrements('id');
-           $table->index(['id']);
-           $table->dropPrimary('id');
-           $table->primary(['uuid']);
+            $table->uuid()->primary();
+            $table->unsignedBigInteger('id')->unique();
            $table->string('name');
            $table->string('path');
            $table->string('type')->comment('mime/type');
