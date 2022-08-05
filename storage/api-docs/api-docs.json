@@ -1,119 +1,38 @@
 {
-    "openapi": "3.0.0",
+    "openapi": "3.0.3",
     "info": {
-        "title": "Pet Shop API - Swagger Documentation",
-        "description": "This is the documenttation of the Pet Shop backend application",
+        "title": "Pet Shop API - Backend Documentation",
+        "description": "\nThis is the pet shop backend api documentation",
         "contact": {
             "email": "jonathanyombo@gmail.com"
         },
-        "license": {
-            "name": "Apache 2.0",
-            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
-        },
-        "version": "1.0.0"
+        "version": "1.0.11"
     },
     "servers": [
         {
-            "url": "http://localhost:8000/api/v1",
-            "description": "Pet Shop API Server"
+            "url": "http://localhost:8000/api/v1"
         }
     ],
     "paths": {
-        "/admin/user-listing": {
-            "get": {
-                "tags": [
-                    "Admin"
-                ],
-                "summary": "Get list of users",
-                "description": "Returns list of users",
-                "operationId": "getUsersList",
-                "responses": {
-                    "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated"
-                    },
-                    "403": {
-                        "description": "Forbidden"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/brands": {
-            "get": {
-                "tags": [
-                    "Brand"
-                ],
-                "summary": "Get list of brands",
-                "description": "Get list of brands",
-                "operationId": "index",
-                "parameters": [
-                    {
-                        "name": "limit",
-                        "in": "query",
-                        "description": "limit",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "page",
-                        "in": "query",
-                        "description": "the page number",
-                        "required": false,
-                        "schema": {
-                            "type": "integer"
-                        }
-                    },
-                    {
-                        "name": "order",
-                        "in": "query",
-                        "description": "order  accepts 'true' or 'false'",
-                        "required": false,
-                        "schema": {
-                            "type": "boolean"
-                        }
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Success"
-                    }
-                }
-            }
-        },
-        "/brand/create": {
+        "\/api\/v1\/brand\/create": {
             "post": {
                 "tags": [
-                    "Brand"
+                    "Brands"
                 ],
-                "summary": "Store brand in DB",
-                "description": "Store brand in DB",
-                "operationId": "store",
+                "summary": "Create a new brand",
+                "operationId": "brands-create",
                 "requestBody": {
                     "required": true,
                     "content": {
-                        "application/x-www-form-urlencoded": {
+                        "application\/x-www-form-urlencoded": {
                             "schema": {
                                 "required": [
                                     "title"
                                 ],
                                 "properties": {
                                     "title": {
-                                        "description": "Brand title",
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "Brand title"
                                     }
                                 },
                                 "type": "object"
@@ -123,43 +42,88 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Ok"
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                }
             }
         },
-        "/brand/{uuid}": {
-            "get": {
+        "\/api\/v1\/brand\/{uuid}": {
+            "put": {
                 "tags": [
-                    "Brand"
+                    "Brands"
                 ],
-                "summary": "Get Brand Detail",
-                "description": "Get Brand Detail",
-                "operationId": "show",
+                "summary": "Update an existing brand",
+                "operationId": "brands-update",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "description": "Brand title"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Ok"
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
                 }
             },
-            "put": {
+            "delete": {
                 "tags": [
-                    "Brand"
+                    "Brands"
                 ],
-                "summary": "Update brand in DB",
-                "description": "Update brand in DB",
-                "operationId": "update",
+                "summary": "delete an existing brand",
+                "operationId": "brands-delete",
                 "parameters": [
                     {
                         "name": "uuid",
-                        "in": "path",
-                        "description": "Uuid of brand",
                         "required": true,
+                        "in": "path",
                         "schema": {
                             "type": "string"
                         }
@@ -167,28 +131,229 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Ok"
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "Fetch a brand",
+                "operationId": "brands-read",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
                 },
-                "security": [
+                "security": []
+            }
+        },
+        "\/api\/v1\/brands": {
+            "get": {
+                "tags": [
+                    "Brands"
+                ],
+                "summary": "List all brands",
+                "operationId": "brands-listing",
+                "parameters": [
                     {
-                        "bearerAuth": []
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sortBy",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "desc",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
                     }
-                ]
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/category\/create": {
+            "post": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Create a new category",
+                "operationId": "categories-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "description": "Category title"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "\/api\/v1\/category\/{uuid}": {
+            "put": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Update an existing category",
+                "operationId": "categories-update",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "title"
+                                ],
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "description": "Category title"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
             },
             "delete": {
                 "tags": [
-                    "Brand"
+                    "Categories"
                 ],
-                "summary": "Delete brand",
-                "description": "Delete brand",
-                "operationId": "destroy",
+                "summary": "delete an existing category",
+                "operationId": "categories-delete",
                 "parameters": [
                     {
                         "name": "uuid",
-                        "in": "path",
-                        "description": "Uuid of brand",
                         "required": true,
+                        "in": "path",
                         "schema": {
                             "type": "string"
                         }
@@ -196,51 +361,1371 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Ok"
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/categories": {
+                }
+            },
             "get": {
                 "tags": [
                     "Categories"
                 ],
-                "summary": "Get list of categories",
-                "description": "Returns list of categoies",
-                "operationId": "getCategoriesList",
+                "summary": "Fetch a category",
+                "operationId": "categories-read",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Successful operation",
-                        "content": {
-                            "application/json": {
-                                "schema": {}
-                            }
-                        }
+                        "description": "OK"
                     },
                     "401": {
-                        "description": "Unauthenticated"
+                        "description": "Unauthorized"
                     },
-                    "403": {
-                        "description": "Forbidden"
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "List all categories",
+                "operationId": "categories-listing",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sortBy",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "desc",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/product\/create": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Create a new product",
+                "operationId": "products-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "category_uuid",
+                                    "title",
+                                    "price",
+                                    "description",
+                                    "metadata"
+                                ],
+                                "properties": {
+                                    "category_uuid": {
+                                        "type": "string",
+                                        "description": "Category UUID"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "description": "Product title"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "description": "Product price"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Product description"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "properties": {
+                                            "image": {
+                                                "type": "string"
+                                            },
+                                            "brand": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "description": "Product metadata"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
                     }
                 }
+            }
+        },
+        "\/api\/v1\/product\/{uuid}": {
+            "put": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Update an existing product",
+                "operationId": "products-update",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "category_uuid",
+                                    "title",
+                                    "price",
+                                    "description",
+                                    "metadata"
+                                ],
+                                "properties": {
+                                    "category_uuid": {
+                                        "type": "string",
+                                        "description": "Category UUID"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "description": "Product title"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "description": "Product price"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Product description"
+                                    },
+                                    "metadata": {
+                                        "type": "object",
+                                        "properties": {
+                                            "image": {
+                                                "type": "string"
+                                            },
+                                            "brand": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "description": "Product metadata"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "delete an existing product",
+                "operationId": "products-delete",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Fetch a product",
+                "operationId": "products-read",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/products": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "List all products",
+                "operationId": "products-listing",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sortBy",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "desc",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "price",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "brand",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "title",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "View a User account",
+                "operationId": "user-read",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Delete a User account",
+                "operationId": "user-delete",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "\/api\/v1\/user\/edit": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update a User account",
+                "operationId": "user-update",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "address",
+                                    "phone_number"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "description": "User firstname"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "description": "User lastname"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "description": "Avatar image UUID"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "description": "User main address"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "description": "User main phone number"
+                                    },
+                                    "is_marketing": {
+                                        "type": "string",
+                                        "description": "User marketing preferences"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "\/api\/v1\/file\/upload": {
+            "post": {
+                "tags": [
+                    "File"
+                ],
+                "summary": "Upload a file",
+                "operationId": "file-upload",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart\/form-data": {
+                            "schema": {
+                                "required": [
+                                    "file"
+                                ],
+                                "properties": {
+                                    "file": {
+                                        "type": "string",
+                                        "format": "binary",
+                                        "description": "file to upload"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "\/api\/v1\/file\/{uuid}": {
+            "get": {
+                "tags": [
+                    "File"
+                ],
+                "summary": "Read a file",
+                "operationId": "file-read",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/admin\/login": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Login an Admin account",
+                "operationId": "admin-login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "Admin email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "Admin password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/admin\/logout": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Logout an Admin account",
+                "operationId": "admin-logout",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/admin\/create": {
+            "post": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Create an Admin account",
+                "operationId": "admin-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "avatar",
+                                    "address",
+                                    "phone_number"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "description": "User firstname"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "description": "User lastname"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "description": "Avatar image UUID"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "description": "User main address"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "description": "User main phone number"
+                                    },
+                                    "marketing": {
+                                        "type": "string",
+                                        "description": "User marketing preferences"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/admin\/user-listing": {
+            "get": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "List all users",
+                "operationId": "admin-user-listing",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "sortBy",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "desc",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "first_name",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "email",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "phone",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "address",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "created_at",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "marketing",
+                        "required": false,
+                        "in": "query",
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "0",
+                                "1"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "\/api\/v1\/admin\/user-edit\/{uuid}": {
+            "put": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Edit a User account",
+                "operationId": "admin-user-edit",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "address",
+                                    "phone_number"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "description": "User firstname"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "description": "User lastname"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "description": "Avatar image UUID"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "description": "User main address"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "description": "User main phone number"
+                                    },
+                                    "is_marketing": {
+                                        "type": "string",
+                                        "description": "User marketing preferences"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "\/api\/v1\/admin\/user-delete\/{uuid}": {
+            "delete": {
+                "tags": [
+                    "Admin"
+                ],
+                "summary": "Delete a User account",
+                "operationId": "admin-user-delete",
+                "parameters": [
+                    {
+                        "name": "uuid",
+                        "required": true,
+                        "in": "path",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
+        },
+        "\/api\/v1\/user\/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Login an User account",
+                "operationId": "user-login",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/user\/logout": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Logout an User account",
+                "operationId": "user-logout",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/user\/create": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Create a User account",
+                "operationId": "user-create",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "first_name",
+                                    "last_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation",
+                                    "address",
+                                    "phone_number"
+                                ],
+                                "properties": {
+                                    "first_name": {
+                                        "type": "string",
+                                        "description": "User firstname"
+                                    },
+                                    "last_name": {
+                                        "type": "string",
+                                        "description": "User lastname"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "avatar": {
+                                        "type": "string",
+                                        "description": "Avatar image UUID"
+                                    },
+                                    "address": {
+                                        "type": "string",
+                                        "description": "User main address"
+                                    },
+                                    "phone_number": {
+                                        "type": "string",
+                                        "description": "User main phone number"
+                                    },
+                                    "is_marketing": {
+                                        "type": "string",
+                                        "description": "User marketing preferences"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/user\/forgot-password": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Creates a token to reset a user password",
+                "operationId": "user-forgot-pass",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User email"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
+            }
+        },
+        "\/api\/v1\/user\/reset-password-token": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Reset a user password with the a token",
+                "operationId": "user-reset-pass-token",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application\/x-www-form-urlencoded": {
+                            "schema": {
+                                "required": [
+                                    "token",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "token": {
+                                        "type": "string",
+                                        "description": "User reset token"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "description": "User email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "description": "User password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Page not found"
+                    },
+                    "422": {
+                        "description": "Unprocessable Entity"
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                },
+                "security": []
             }
         }
     },
     "components": {
         "securitySchemes": {
             "bearerAuth": {
-                "type": "apiKey",
-                "description": "bearerAuth  (http, Bearer)",
-                "name": "Authorization",
-                "in": "header"
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Admin",
+            "description": "Admin API endpoint"
+        },
+        {
+            "name": "User",
+            "description": "User API endpoint"
+        },
+        {
+            "name": "MainPage",
+            "description": "MainPage API endpoint"
+        },
+        {
+            "name": "Categories",
+            "description": "Categories API endpoint"
+        },
+        {
+            "name": "Brands",
+            "description": "Brands API endpoint"
+        },
+        {
+            "name": "Products",
+            "description": "Products API endpoint"
+        },
+        {
+            "name": "File",
+            "description": "File API endpoint"
+        }
+    ],
+    "security": [
+        {
+            "bearerAuth": []
+        }
+    ]
 }

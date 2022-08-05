@@ -12,13 +12,13 @@ return [
                 /*
                  * Route for accessing api documentation interface
                 */
-                'api' => 'api/documentation',
+                'api' => 'api/docs',
             ],
             'paths' => [
                 /*
                  * Edit to include full URL in ui for assets
                 */
-                'use_absolute_path' => env('L5_SWAGGER_USE_ABSOLUTE_PATH', true),
+                'use_absolute_path' => env('L5_SWAGGER_USE_ABSOLUTE_PATH', false),
 
                 /*
                  * File name of the generated json documentation file
@@ -219,7 +219,7 @@ return [
          * Set this to `true` in development mode so that docs would be regenerated on each request
          * Set this to `false` to disable swagger generation on production
         */
-        'generate_always' => env('L5_SWAGGER_GENERATE_ALWAYS', true),
+        'generate_always' => env('L5_SWAGGER_GENERATE_ALWAYS', false),
 
         /*
          * Set this to `true` to generate a copy of documentation in yaml format
