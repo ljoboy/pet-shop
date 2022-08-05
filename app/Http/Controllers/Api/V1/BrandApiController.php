@@ -25,7 +25,7 @@ final class BrandApiController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return AnonymousResourceCollection
      */
     public function index(Request $request): AnonymousResourceCollection
@@ -43,7 +43,7 @@ final class BrandApiController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreBrandRequest $request
+     * @param  StoreBrandRequest  $request
      * @return JsonResponse
      */
     public function store(StoreBrandRequest $request): JsonResponse
@@ -58,7 +58,7 @@ final class BrandApiController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param Brand $brand
+     * @param  Brand  $brand
      * @return JsonResponse
      */
     public function show(Brand $brand): JsonResponse
@@ -69,8 +69,8 @@ final class BrandApiController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateBrandRequest $request
-     * @param Brand $brand
+     * @param  UpdateBrandRequest  $request
+     * @param  Brand  $brand
      * @return JsonResponse
      */
     public function update(UpdateBrandRequest $request, Brand $brand): JsonResponse
@@ -86,12 +86,13 @@ final class BrandApiController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param Brand $brand
+     * @param  Brand  $brand
      * @return Response
      */
     public function destroy(Brand $brand): Response
     {
         $brand->delete();
+
         return $this->responseSuccess(data: null, code: Response::HTTP_NO_CONTENT);
     }
 }

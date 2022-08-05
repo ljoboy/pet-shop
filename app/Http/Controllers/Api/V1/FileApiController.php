@@ -18,6 +18,7 @@ final class FileApiController extends ApiController
 {
     /**
      * Store a newly created resource in storage.
+     *
      * @throws AuthorizationException
      */
     public function store(StoreFileRequest $request): JsonResponse
@@ -36,13 +37,15 @@ final class FileApiController extends ApiController
     }
 
     /**
-     * @param File $file
+     * @param  File  $file
      * @return Response
+     *
      * @throws AuthorizationException
      */
     public function show(File $file): Response
     {
         $this->authorize('view', $file);
+
         return response(Storage::get($file->path))->header('Content-Type', $file->type);
     }
 }

@@ -28,13 +28,13 @@ final class FileResource extends JsonResource
      * @return array|Arrayable<string, string|int>|JsonSerializable
      */
     #[ArrayShape([
-        'uuid' => "string",
-        'name' => "string",
-        'path' => "string",
-        'type' => "string",
-        'size' => "int",
-        'created_at' => "string",
-        'updated_at' => "string"
+        'uuid' => 'string',
+        'name' => 'string',
+        'path' => 'string',
+        'type' => 'string',
+        'size' => 'int',
+        'created_at' => 'string',
+        'updated_at' => 'string',
     ])]
     public function toArray($request): array|JsonSerializable|Arrayable
     {

@@ -14,8 +14,8 @@ final class FilePolicy
     use HandlesAuthorization;
 
     /**
-     * @param User $user
-     * @param string $ability
+     * @param  User  $user
+     * @param  string  $ability
      * @return bool|null
      */
     public function before(User $user, string $ability): ?bool
@@ -30,8 +30,8 @@ final class FilePolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param User|null $user
-     * @param File $file
+     * @param  User|null  $user
+     * @param  File  $file
      * @return Response|bool
      */
     public function view(?User $user, File $file): Response|bool
@@ -42,7 +42,7 @@ final class FilePolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param User $user
+     * @param  User  $user
      * @return Response|bool
      */
     public function create(User $user): Response|bool

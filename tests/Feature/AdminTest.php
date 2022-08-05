@@ -1,16 +1,16 @@
 <?php
 
 use App\Models\User;
-use \Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Response;
 
 beforeEach(function () {
     $this->route = '/api/v1/admin';
 });
 
 test('admin@buckhill.co.uk exist', function () {
-   $this->assertDatabaseHas('users', [
-       'email' => 'admin@buckhill.co.uk'
-   ]);
+    $this->assertDatabaseHas('users', [
+        'email' => 'admin@buckhill.co.uk',
+    ]);
 });
 
 test('admin can login', function () {

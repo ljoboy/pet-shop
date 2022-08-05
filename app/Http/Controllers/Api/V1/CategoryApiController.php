@@ -13,7 +13,6 @@ use App\Policies\CategoryPolicy;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 use Str;
 use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
@@ -27,7 +26,7 @@ final class CategoryApiController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return AnonymousResourceCollection
      */
     public function index(Request $request): AnonymousResourceCollection
@@ -37,13 +36,14 @@ final class CategoryApiController extends ApiController
         $limit = $request->get('limit', 10);
 
         $categories = Category::orderBy($sortBy, $direction)->paginate($limit);
+
         return CategoryShowResource::collection($categories);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreCategoryRequest $request
+     * @param  StoreCategoryRequest  $request
      * @return JsonResponse
      */
     public function store(StoreCategoryRequest $request): JsonResponse
@@ -60,7 +60,7 @@ final class CategoryApiController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param Category $category
+     * @param  Category  $category
      * @return JsonResponse
      */
     public function show(Category $category): JsonResponse
@@ -71,8 +71,8 @@ final class CategoryApiController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateCategoryRequest $request
-     * @param Category $category
+     * @param  UpdateCategoryRequest  $request
+     * @param  Category  $category
      * @return JsonResponse
      */
     public function update(UpdateCategoryRequest $request, Category $category): JsonResponse
@@ -82,18 +82,20 @@ final class CategoryApiController extends ApiController
             'title' => $validated,
             'slug' => Str::slug($validated),
         ]);
+
         return $this->responseSuccess(data: new CategoryShowResource($category));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param Category $category
+     * @param  Category  $category
      * @return JsonResponse
      */
     public function destroy(Category $category): JsonResponse
     {
         $category->delete();
+
         return $this->responseSuccess(data: null, code: HttpResponse::HTTP_NO_CONTENT);
     }
 }

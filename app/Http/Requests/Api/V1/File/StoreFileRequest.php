@@ -26,11 +26,11 @@ class StoreFileRequest extends FormRequest
      *
      * @return array<string, array<string>>
      */
-    #[ArrayShape(['file' => "string[]"])]
+    #[ArrayShape(['file' => 'string[]'])]
     public function rules(): array
     {
         return [
-            'file' => ['required', 'file']
+            'file' => ['required', 'file'],
         ];
     }
 }

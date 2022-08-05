@@ -14,8 +14,8 @@ final class BrandPolicy
     use HandlesAuthorization;
 
     /**
-     * @param User $user
-     * @param string $ability
+     * @param  User  $user
+     * @param  string  $ability
      * @return bool|null
      */
     public function before(User $user, string $ability): ?bool
@@ -30,7 +30,7 @@ final class BrandPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param User|null $user
+     * @param  User|null  $user
      * @return Response|bool
      */
     public function viewAny(?User $user): Response|bool
@@ -41,8 +41,8 @@ final class BrandPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param User|null $user
-     * @param Brand $brand
+     * @param  User|null  $user
+     * @param  Brand  $brand
      * @return Response|bool
      */
     public function view(?User $user, Brand $brand): Response|bool
@@ -53,7 +53,7 @@ final class BrandPolicy
     /**
      * Determine whether the user can create models.
      *
-     * @param User $user
+     * @param  User  $user
      * @return Response|bool
      */
     public function create(User $user): Response|bool
@@ -64,8 +64,8 @@ final class BrandPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param User $user
-     * @param Brand $brand
+     * @param  User  $user
+     * @param  Brand  $brand
      * @return Response|bool
      */
     public function update(User $user, Brand $brand): Response|bool
@@ -76,8 +76,8 @@ final class BrandPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param User $user
-     * @param Brand $brand
+     * @param  User  $user
+     * @param  Brand  $brand
      * @return Response|bool
      */
     public function delete(User $user, Brand $brand): Response|bool

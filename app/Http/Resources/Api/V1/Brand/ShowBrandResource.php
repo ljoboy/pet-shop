@@ -21,17 +21,17 @@ final class ShowBrandResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array|Arrayable<string, string>|JsonSerializable
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
         return [
-            "uuid" => $this->uuid,
-            "title" => $this->title,
-            "slug" => $this->slug,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->update_at,
+            'uuid' => $this->uuid,
+            'title' => $this->title,
+            'slug' => $this->slug,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->update_at,
         ];
     }
 }

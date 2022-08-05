@@ -24,11 +24,11 @@ final class ForgotPasswordRequest extends FormRequest
      *
      * @return array<string, array<string>>
      */
-    #[ArrayShape(['email' => "string[]"])]
+    #[ArrayShape(['email' => 'string[]'])]
     public function rules(): array
     {
         return [
-            'email' => ['required', 'email']
+            'email' => ['required', 'email'],
         ];
     }
 }

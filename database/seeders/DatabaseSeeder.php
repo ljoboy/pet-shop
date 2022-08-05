@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-
 final class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,11 +13,11 @@ final class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-         $this->call([
-             AdminSeeder::class,
-             UserSeeder::class,
-             BrandSeeder::class,
-             CategorySeeder::class,
-         ]);
+        $this->call([
+            AdminSeeder::class,
+            UserSeeder::class,
+            BrandSeeder::class,
+            CategorySeeder::class,
+        ]);
     }
 }

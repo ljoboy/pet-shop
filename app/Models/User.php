@@ -49,7 +49,7 @@ final class User extends Authenticatable implements JWTSubject
         'password',
         'id',
         'is_admin',
-        'last_login_at'
+        'last_login_at',
     ];
 
     /**
@@ -78,7 +78,7 @@ final class User extends Authenticatable implements JWTSubject
         return $this->getKey();
     }
 
-    #[ArrayShape(['user_uuid' => "mixed|string"])]
+    #[ArrayShape(['user_uuid' => 'mixed|string'])]
     public function getJWTCustomClaims(): array
     {
         return [
@@ -86,12 +86,11 @@ final class User extends Authenticatable implements JWTSubject
         ];
     }
 
-
     /**
      * Retrieve the model for a bound value.
      *
-     * @param mixed $value
-     * @param string|null $field
+     * @param  mixed  $value
+     * @param  string|null  $field
      * @return Model|null
      */
     public function resolveRouteBinding($value, $field = null): ?Model

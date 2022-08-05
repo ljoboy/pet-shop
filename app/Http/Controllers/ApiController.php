@@ -9,12 +9,12 @@ use Illuminate\Http\JsonResponse;
 abstract class ApiController extends Controller
 {
     /**
-     * @param mixed $data
-     * @param string|null $error
-     * @param int $code
-     * @param array $errors
-     * @param array $extra
-     * @param bool $success
+     * @param  mixed  $data
+     * @param  string|null  $error
+     * @param  int  $code
+     * @param  array  $errors
+     * @param  array  $extra
+     * @param  bool  $success
      * @return JsonResponse
      */
     private function response(
@@ -32,7 +32,7 @@ abstract class ApiController extends Controller
             'errors' => $errors,
         ];
 
-        if (!$success) {
+        if (! $success) {
             $response['trace'] = $extra;
         }
 
@@ -44,10 +44,10 @@ abstract class ApiController extends Controller
     }
 
     /**
-     * @param string|null $error
-     * @param array $errors
-     * @param int $code
-     * @param array $trace
+     * @param  string|null  $error
+     * @param  array  $errors
+     * @param  int  $code
+     * @param  array  $trace
      * @return JsonResponse
      */
     protected function responseError(

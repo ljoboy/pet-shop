@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Brand;
-use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,6 +21,7 @@ final class ProductFactory extends Factory
     public function definition(): array
     {
         $brands = Brand::all('uuid')->pluck('uuid')->toArray();
+
         return [
             'price' => fake()->randomFloat(2, 0, 100),
             'description' => fake()->sentence(),

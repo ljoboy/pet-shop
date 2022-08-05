@@ -18,9 +18,9 @@ return new class extends Migration
         Schema::create('categories', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->unsignedBigInteger('id')->unique();
-           $table->string('title');
-           $table->string('slug');
-           $table->timestamps();
+            $table->string('title');
+            $table->string('slug');
+            $table->timestamps();
         });
     }
 

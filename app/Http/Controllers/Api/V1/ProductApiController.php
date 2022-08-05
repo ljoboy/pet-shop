@@ -24,7 +24,7 @@ final class ProductApiController extends ApiController
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return AnonymousResourceCollection
      */
     public function index(Request $request): AnonymousResourceCollection
@@ -40,13 +40,14 @@ final class ProductApiController extends ApiController
         $request->get('title') && $products->where('title', 'LIKE', "%{$request->get('title')}%");
 
         $products = $products->paginate($limit);
+
         return ProductShowResource::collection($products);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreProductRequest $request
+     * @param  StoreProductRequest  $request
      * @return JsonResponse
      */
     public function store(StoreProductRequest $request)
@@ -59,7 +60,7 @@ final class ProductApiController extends ApiController
     /**
      * Display the specified resource.
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return JsonResponse
      */
     public function show(Product $product): JsonResponse
@@ -70,8 +71,8 @@ final class ProductApiController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateProductRequest $request
-     * @param Product $product
+     * @param  UpdateProductRequest  $request
+     * @param  Product  $product
      * @return JsonResponse
      */
     public function update(UpdateProductRequest $request, Product $product)
@@ -84,12 +85,13 @@ final class ProductApiController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param Product $product
+     * @param  Product  $product
      * @return JsonResponse
      */
     public function destroy(Product $product): JsonResponse
     {
         $product->delete();
+
         return $this->responseSuccess(data: null, code: HttpResponse::HTTP_NO_CONTENT);
     }
 }

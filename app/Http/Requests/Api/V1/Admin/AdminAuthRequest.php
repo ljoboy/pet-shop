@@ -22,7 +22,7 @@ final class AdminAuthRequest extends FormRequest
      *
      * @return array<string, array<string>>
      */
-    #[ArrayShape(['email' => "string[]", 'password' => "string[]"])]
+    #[ArrayShape(['email' => 'string[]', 'password' => 'string[]'])]
     public function rules(): array
     {
         return [

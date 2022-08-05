@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('files', function (Blueprint $table) {
             $table->uuid()->primary();
             $table->unsignedBigInteger('id')->unique();
-           $table->string('name');
-           $table->string('path');
-           $table->string('type')->comment('mime/type');
-           $table->timestamps();
+            $table->string('name');
+            $table->string('path');
+            $table->string('type')->comment('mime/type');
+            $table->timestamps();
         });
     }
 

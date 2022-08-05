@@ -196,7 +196,7 @@ return [
                     'description' => 'bearerAuth  (http, Bearer)',
                     'name' => 'Authorization',
                     'in' => 'header',
-                ]
+                ],
             ],
             'security' => [
                 /*

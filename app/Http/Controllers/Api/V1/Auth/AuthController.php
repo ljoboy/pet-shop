@@ -7,12 +7,11 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
-use Symfony\Component\HttpFoundation\Response as HttpResponse;
 
 abstract class AuthController extends ApiController
 {
     /**
-     * @param bool $is_admin
+     * @param  bool  $is_admin
      * @return JsonResponse
      */
     public function logoutAttempt(bool $is_admin): JsonResponse
@@ -25,8 +24,8 @@ abstract class AuthController extends ApiController
     }
 
     /**
-     * @param array $credentials
-     * @param bool $is_admin
+     * @param  array  $credentials
+     * @param  bool  $is_admin
      * @return JsonResponse
      */
     protected function loginAttempt(array $credentials, bool $is_admin): JsonResponse
@@ -37,6 +36,6 @@ abstract class AuthController extends ApiController
             return $this->responseSuccess(['token' => $token]);
         }
 
-        return $this->responseError("failed to authenticate user");
+        return $this->responseError('failed to authenticate user');
     }
 }

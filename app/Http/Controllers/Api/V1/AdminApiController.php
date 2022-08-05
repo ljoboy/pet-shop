@@ -23,26 +23,28 @@ final class AdminApiController extends ApiController
     {
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
-     * @param CreateAdminRequest $request
+     * @param  CreateAdminRequest  $request
      * @return JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function store(CreateAdminRequest $request): JsonResponse
     {
         $this->authorize('create', User::class);
-        $validated =$request->validated();
+        $validated = $request->validated();
         $validated['is_admin'] = true;
         $user = User::create($validated);
+
         return $this->responseSuccess(new UserWithTokenResource($user));
     }
 
     /**
-     * @param Request $request
+     * @param  Request  $request
      * @return AnonymousResourceCollection
+     *
      * @throws AuthorizationException
      */
     public function userListing(Request $request): AnonymousResourceCollection
@@ -53,10 +55,10 @@ final class AdminApiController extends ApiController
         $limit = $request->get('limit', 10);
 
         $users = User::where('is_admin', 0);
-        $request->get('first_name') && $users->where('first_name', 'LIKE', '%' . $request->get('first_name') . '%');
-        $request->get('email') && $users->where('email', 'LIKE', '%' . $request->get('email') . '%');
+        $request->get('first_name') && $users->where('first_name', 'LIKE', '%'.$request->get('first_name').'%');
+        $request->get('email') && $users->where('email', 'LIKE', '%'.$request->get('email').'%');
         $request->get('phone') && $users->where('phone_number', '=', $request->get('phone'));
-        $request->get('address') && $users->where('address', 'LIKE', '%' . $request->get('address') . '%');
+        $request->get('address') && $users->where('address', 'LIKE', '%'.$request->get('address').'%');
         $request->get('created_at') && $users->where('created_at', '=', $request->get('created_at'));
         $request->get('marketing') && $users->where('is_marketing', '=', $request->get('marketing'));
         $users = $users->orderBy($sortBy, $direction)->paginate($limit);
@@ -67,9 +69,10 @@ final class AdminApiController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param UpdateUserRequest $request
-     * @param User $user
+     * @param  UpdateUserRequest  $request
+     * @param  User  $user
      * @return JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function update(UpdateUserRequest $request, User $user): JsonResponse
@@ -81,14 +84,16 @@ final class AdminApiController extends ApiController
     }
 
     /**
-     * @param User $user
+     * @param  User  $user
      * @return JsonResponse
+     *
      * @throws AuthorizationException
      */
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
         $this->userService->delete($user);
+
         return $this->responseSuccess(data: null, code: HttpResponse::HTTP_NO_CONTENT);
     }
 }

@@ -16,7 +16,7 @@ use JsonSerializable;
  * @property string $email
  * @property string $address
  * @property string $phone_number
- * @property boolean $is_marketing
+ * @property bool $is_marketing
  * @property string $created_at
  * @property string $updated_at
  * @property string $avatar
@@ -26,22 +26,22 @@ final class UserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @param Request $request
+     * @param  Request  $request
      * @return array|Arrayable<string, mixed>|JsonSerializable
      */
     public function toArray($request): array|JsonSerializable|Arrayable
     {
         return [
-            "uuid" => $this->uuid,
-            "first_name" => $this->first_name,
-            "last_name" => $this->last_name,
-            "email" => $this->email,
-            "address" => $this->address,
-            "phone_number" => $this->phone_number,
-            "is_marketing" => $this->is_marketing,
-            "created_at" => $this->created_at,
-            "updated_at" => $this->updated_at,
-            "avatar" => $this->avatar
+            'uuid' => $this->uuid,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'email' => $this->email,
+            'address' => $this->address,
+            'phone_number' => $this->phone_number,
+            'is_marketing' => $this->is_marketing,
+            'created_at' => $this->created_at,
+            'updated_at' => $this->updated_at,
+            'avatar' => $this->avatar,
         ];
     }
 }

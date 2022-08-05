@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Response as HttpResponse;
 final class ForgotPasswordController extends ApiController
 {
     /**
-     * @param ForgotPasswordRequest $request
+     * @param  ForgotPasswordRequest  $request
      * @return JsonResponse
      */
     public function forgotPassword(ForgotPasswordRequest $request): JsonResponse
@@ -26,7 +26,7 @@ final class ForgotPasswordController extends ApiController
             return $this->responseError(error: 'Admin user cannot be edited', code: HttpResponse::HTTP_BAD_REQUEST);
         }
 
-        if ($user && !$user->is_admin) {
+        if ($user && ! $user->is_admin) {
             return $this->responseSuccess(
                 data: ['reset_token' => Password::createToken($user)],
                 code: HttpResponse::HTTP_OK

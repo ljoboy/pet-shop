@@ -25,14 +25,14 @@ final class UpdateUserRequest extends FormRequest
      * @return array<string, array<string>>
      */
     #[ArrayShape([
-        'first_name' => "string[]",
-        'last_name' => "string[]",
-        'email' => "string[]",
-        'password' => "string[]",
-        'address' => "string[]",
-        'phone_number' => "string[]",
-        'is_marketing' => "string[]",
-        'avatar' => "string[]"
+        'first_name' => 'string[]',
+        'last_name' => 'string[]',
+        'email' => 'string[]',
+        'password' => 'string[]',
+        'address' => 'string[]',
+        'phone_number' => 'string[]',
+        'is_marketing' => 'string[]',
+        'avatar' => 'string[]',
     ])]
     public function rules(): array
     {
