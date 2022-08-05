@@ -14,7 +14,7 @@
         }
     ],
     "paths": {
-        "\/api\/v1\/brand\/create": {
+        "/brand\/create": {
             "post": {
                 "tags": [
                     "Brands"
@@ -59,7 +59,7 @@
                 }
             }
         },
-        "\/api\/v1\/brand\/{uuid}": {
+        "/brand\/{uuid}": {
             "put": {
                 "tags": [
                     "Brands"
@@ -183,7 +183,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/brands": {
+        "/brands": {
             "get": {
                 "tags": [
                     "Brands"
@@ -244,7 +244,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/category\/create": {
+        "/category\/create": {
             "post": {
                 "tags": [
                     "Categories"
@@ -289,7 +289,7 @@
                 }
             }
         },
-        "\/api\/v1\/category\/{uuid}": {
+        "/category\/{uuid}": {
             "put": {
                 "tags": [
                     "Categories"
@@ -413,7 +413,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/categories": {
+        "/categories": {
             "get": {
                 "tags": [
                     "Categories"
@@ -474,7 +474,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/product\/create": {
+        "/product\/create": {
             "post": {
                 "tags": [
                     "Products"
@@ -547,7 +547,7 @@
                 }
             }
         },
-        "\/api\/v1\/product\/{uuid}": {
+        "/product\/{uuid}": {
             "put": {
                 "tags": [
                     "Products"
@@ -699,7 +699,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/products": {
+        "/products": {
             "get": {
                 "tags": [
                     "Products"
@@ -792,7 +792,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/user": {
+        "/user": {
             "get": {
                 "tags": [
                     "User"
@@ -842,7 +842,7 @@
                 }
             }
         },
-        "\/api\/v1\/user\/edit": {
+        "/user\/edit": {
             "put": {
                 "tags": [
                     "User"
@@ -925,7 +925,7 @@
                 }
             }
         },
-        "\/api\/v1\/file\/upload": {
+        "/file\/upload": {
             "post": {
                 "tags": [
                     "File"
@@ -971,7 +971,7 @@
                 }
             }
         },
-        "\/api\/v1\/file\/{uuid}": {
+        "/file\/{uuid}": {
             "get": {
                 "tags": [
                     "File"
@@ -1008,7 +1008,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/admin\/login": {
+        "/admin\/login": {
             "post": {
                 "tags": [
                     "Admin"
@@ -1059,7 +1059,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/admin\/logout": {
+        "/admin\/logout": {
             "get": {
                 "tags": [
                     "Admin"
@@ -1086,7 +1086,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/admin\/create": {
+        "/admin\/create": {
             "post": {
                 "tags": [
                     "Admin"
@@ -1171,7 +1171,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/admin\/user-listing": {
+        "/admin\/user-listing": {
             "get": {
                 "tags": [
                     "Admin"
@@ -1283,7 +1283,7 @@
                 }
             }
         },
-        "\/api\/v1\/admin\/user-edit\/{uuid}": {
+        "/admin\/user-edit\/{uuid}": {
             "put": {
                 "tags": [
                     "Admin"
@@ -1376,7 +1376,7 @@
                 }
             }
         },
-        "\/api\/v1\/admin\/user-delete\/{uuid}": {
+        "/admin\/user-delete\/{uuid}": {
             "delete": {
                 "tags": [
                     "Admin"
@@ -1412,7 +1412,7 @@
                 }
             }
         },
-        "\/api\/v1\/user\/login": {
+        "/user\/login": {
             "post": {
                 "tags": [
                     "User"
@@ -1463,7 +1463,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/user\/logout": {
+        "/user\/logout": {
             "get": {
                 "tags": [
                     "User"
@@ -1490,7 +1490,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/user\/create": {
+        "/user\/create": {
             "post": {
                 "tags": [
                     "User"
@@ -1574,7 +1574,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/user\/forgot-password": {
+        "/user\/forgot-password": {
             "post": {
                 "tags": [
                     "User"
@@ -1620,7 +1620,7 @@
                 "security": []
             }
         },
-        "\/api\/v1\/user\/reset-password-token": {
+        "/user\/reset-password-token": {
             "post": {
                 "tags": [
                     "User"
