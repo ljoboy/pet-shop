@@ -5,7 +5,7 @@ return [
     'documentations' => [
         'default' => [
             'api' => [
-                'title' => 'L5 Swagger UI',
+                'title' => config('app.name'),
             ],
 
             'routes' => [
@@ -123,8 +123,7 @@ return [
              * @link https://github.com/zircote/swagger-php/tree/master/Examples/schema-query-parameter-processor
              * @see \OpenApi\scan
              */
-            'processors' => [
-                // new \App\SwaggerProcessors\SchemaQueryParameter(),
+            'processors' => [// new \App\SwaggerProcessors\SchemaQueryParameter(),
             ],
 
             /**
@@ -192,6 +191,12 @@ return [
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
                 */
+                'bearerAuth' => [
+                    'type' => 'apiKey',
+                    'description' => 'bearerAuth  (http, Bearer)',
+                    'name' => 'Authorization',
+                    'in' => 'header',
+                ]
             ],
             'security' => [
                 /*
@@ -214,7 +219,7 @@ return [
          * Set this to `true` in development mode so that docs would be regenerated on each request
          * Set this to `false` to disable swagger generation on production
         */
-        'generate_always' => env('L5_SWAGGER_GENERATE_ALWAYS', false),
+        'generate_always' => env('L5_SWAGGER_GENERATE_ALWAYS', true),
 
         /*
          * Set this to `true` to generate a copy of documentation in yaml format
